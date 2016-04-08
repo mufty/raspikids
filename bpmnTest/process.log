@@ -1,0 +1,164 @@
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111310430}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111310432}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111310440}
+{"process":"Default Process","id":"unknown","description":"Token arrived at task 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111310440}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111367675}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111367678}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111367686}
+{"process":"Default Process","id":"unknown","description":"Token arrived at scriptTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111367686}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111367691}
+{"process":"Default Process","id":"unknown","description":"Token arrived at task 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111367692}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111391054}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111391056}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111391063}
+{"process":"Default Process","id":"unknown","description":"Token arrived at userTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111391064}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111425252}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111425254}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111425262}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111425262}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111425267}
+{"process":"Default Process","id":"unknown","description":"Token arrived at task 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111425267}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111436744}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111436747}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111436755}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111436755}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111436761}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111436761}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111436764}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111436764}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111498486}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111498489}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111498496}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111498496}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111498501}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111498502}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111498505}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111498505}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111512742}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111512745}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111512753}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111512753}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111520386}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111520389}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111520397}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111520397}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111520402}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111520402}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111520406}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111520406}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111553892}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111553895}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111553901}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111553902}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111553907}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111553907}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111553910}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111553910}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111628754}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111628756}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111628764}
+{"process":"Default Process","id":"unknown","description":"Token arrived at task 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111628764}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111679723}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111679727}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111679734}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111679734}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111679739}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111679739}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111679742}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111679742}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460111705497}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460111705500}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111705507}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460111705507}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111705512}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111705512}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111705516}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460111705516}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112216893}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112216896}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112216903}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112216904}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216909}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216909}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216912}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216912}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216915}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112216915}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112258464}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112258467}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112258474}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112258474}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112258479}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112258479}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112321979}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112321980}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112322006}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112322006}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322030}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322030}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322033}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322033}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322037}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112322037}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112469305}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112469307}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112469315}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112469315}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469321}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469321}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469324}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469324}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469328}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112469328}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112487258}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112487261}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112487268}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112487268}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487274}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487274}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487276}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487277}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487280}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112487280}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112497521}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112497524}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112497532}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112497532}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112497537}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112497537}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112523531}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112523534}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112523542}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112523542}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523547}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523547}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523550}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523550}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523554}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112523554}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112548689}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112548691}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112548698}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112548698}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112548703}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112548704}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112613706}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112613709}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112613717}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112613717}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613723}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613723}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613726}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613726}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613729}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112613729}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460112654013}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460112654015}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112654023}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask'","data":{},"level":"debug","message":"","timestamp":1460112654023}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654028}
+{"process":"Default Process","id":"unknown","description":"Token arrived at exclusiveGateway 'Is it ok'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654028}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654031}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654032}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654035}
+{"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460112654035}
