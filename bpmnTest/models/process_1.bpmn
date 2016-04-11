@@ -9,24 +9,9 @@
     <bpmn2:endEvent id="EndEvent_1" name="End">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="StartEvent_1" targetRef="ServiceTask_3"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ServiceTask_3" targetRef="ExclusiveGateway_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="ServiceTask_2" targetRef="EndEvent_1"/>
-    <bpmn2:serviceTask id="ServiceTask_2" name="MyTask2">
-      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
-    </bpmn2:serviceTask>
-    <bpmn2:serviceTask id="ServiceTask_3" name="MyTask" implementation="##WebService">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="InputOutputSpecification_1">
-        <bpmn2:inputSet id="InputSet_1" name="Input Set 1"/>
-      </bpmn2:ioSpecification>
-    </bpmn2:serviceTask>
-    <bpmn2:serviceTask id="ServiceTask_4" name="MyTask2">
-      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
-    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="StartEvent_1" targetRef="ServiceTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ServiceTask_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="ServiceTask_5" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_2" name="End">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -35,9 +20,24 @@
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" name="ok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_2"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="nok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_4"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" sourceRef="ServiceTask_4" targetRef="EndEvent_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="ok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_5"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="nok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_6"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" sourceRef="ServiceTask_6" targetRef="EndEvent_2"/>
+    <bpmn2:serviceTask id="ServiceTask_1" name="MyTask">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_1">
+        <bpmn2:inputSet id="InputSet_1" name="Input Set 1"/>
+      </bpmn2:ioSpecification>
+    </bpmn2:serviceTask>
+    <bpmn2:serviceTask id="ServiceTask_5" name="MyTask2">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:serviceTask id="ServiceTask_6" name="MyTask2">
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+    </bpmn2:serviceTask>
     <bpmn2:property id="Property_1" itemSubjectRef="ItemDefinition_10" name="globalVar"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Default Process Diagram">
@@ -54,24 +54,6 @@
           <dc:Bounds height="15.0" width="22.0" x="507.0" y="134.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_2" bpmnElement="ServiceTask_2">
-        <dc:Bounds height="50.0" width="110.0" x="391.0" y="287.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_11" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="48.0" x="422.0" y="304.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_3" bpmnElement="ServiceTask_3">
-        <dc:Bounds height="50.0" width="110.0" x="262.0" y="91.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_13" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="41.0" x="296.0" y="108.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_4" bpmnElement="ServiceTask_4">
-        <dc:Bounds height="50.0" width="110.0" x="391.0" y="442.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_15" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="48.0" x="422.0" y="459.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_2">
         <dc:Bounds height="36.0" width="36.0" x="580.0" y="98.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_16" labelStyle="BPMNLabelStyle_1">
@@ -84,26 +66,44 @@
           <dc:Bounds height="15.0" width="35.0" x="299.0" y="337.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_1" targetElement="BPMNShape_ServiceTask_3">
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_1" bpmnElement="ServiceTask_1">
+        <dc:Bounds height="50.0" width="110.0" x="262.0" y="91.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_12" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="41.0" x="296.0" y="108.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_5" bpmnElement="ServiceTask_5">
+        <dc:Bounds height="50.0" width="110.0" x="391.0" y="287.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_14" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="48.0" x="422.0" y="304.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_6" bpmnElement="ServiceTask_6">
+        <dc:Bounds height="50.0" width="110.0" x="391.0" y="442.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_21" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="48.0" x="422.0" y="459.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_1" targetElement="BPMNShape_ServiceTask_1">
         <di:waypoint xsi:type="dc:Point" x="141.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="199.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="199.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="262.0" y="116.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_5"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ServiceTask_3" targetElement="BPMNShape_ExclusiveGateway_1">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ServiceTask_1" targetElement="BPMNShape_ExclusiveGateway_1">
         <di:waypoint xsi:type="dc:Point" x="317.0" y="141.0"/>
         <di:waypoint xsi:type="dc:Point" x="317.0" y="214.0"/>
         <di:waypoint xsi:type="dc:Point" x="317.0" y="287.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_10"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_ServiceTask_2" targetElement="BPMNShape_2">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_ServiceTask_5" targetElement="BPMNShape_2">
         <di:waypoint xsi:type="dc:Point" x="501.0" y="312.0"/>
         <di:waypoint xsi:type="dc:Point" x="518.0" y="312.0"/>
         <di:waypoint xsi:type="dc:Point" x="518.0" y="134.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_6"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ServiceTask_2">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ServiceTask_5">
         <di:waypoint xsi:type="dc:Point" x="342.0" y="312.0"/>
         <di:waypoint xsi:type="dc:Point" x="366.0" y="312.0"/>
         <di:waypoint xsi:type="dc:Point" x="391.0" y="312.0"/>
@@ -111,7 +111,7 @@
           <dc:Bounds height="15.0" width="13.0" x="361.0" y="313.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ServiceTask_4">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ServiceTask_6">
         <di:waypoint xsi:type="dc:Point" x="317.0" y="337.0"/>
         <di:waypoint xsi:type="dc:Point" x="317.0" y="467.0"/>
         <di:waypoint xsi:type="dc:Point" x="391.0" y="467.0"/>
@@ -119,7 +119,7 @@
           <dc:Bounds height="15.0" width="20.0" x="308.0" y="477.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_ServiceTask_4" targetElement="BPMNShape_EndEvent_1">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_ServiceTask_6" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="501.0" y="467.0"/>
         <di:waypoint xsi:type="dc:Point" x="598.0" y="467.0"/>
         <di:waypoint xsi:type="dc:Point" x="598.0" y="134.0"/>

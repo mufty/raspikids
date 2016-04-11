@@ -13,5 +13,9 @@ bpmn.createUnmanagedProcess(__dirname + "/models/process_1.bpmn", function(err, 
 	
     // we start the process
     myProcess.triggerEvent("Start");
+    
+    setTimeout(function(){
+    	console.log("tick");
+    },1000);
 
 });
