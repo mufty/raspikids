@@ -10,6 +10,7 @@
 	},
 	"name": "nodeManager",
 	"dependencies": {
-		"bpmn": "0.2.2"
+		"bpmn": "0.2.2",
+		"pi-gpio": "0.0.8"
 	}
 }

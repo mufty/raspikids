@@ -1,12 +1,14 @@
+//var gpio = require("pi-gpio");
+
 exports.Start = function(data, done) {
 	// called after the start event arrived at MyStart
 	done(data);
 };
 
-exports.MyTask = function(data, done) {
+exports.GPIOon = function(data, done) {
 	// called at the beginning of MyTask
 	data.test = "test data";
-	console.log("TASK", data);
+	console.log("GPIO on", data);
 	done(data);
 };
 

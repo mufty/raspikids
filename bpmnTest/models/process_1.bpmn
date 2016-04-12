@@ -2,6 +2,10 @@
 <!-- origin at X=0.0 Y=0.0 -->
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ext="http://org.eclipse.bpmn2/ext" xmlns:xs="http://www.w3.org/2001/XMLSchema" id="Definitions_1" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.2.4.Final-v20160330-1625-B110" targetNamespace="http://org.eclipse.bpmn2/default/process">
   <bpmn2:itemDefinition id="ItemDefinition_10" isCollection="false" structureRef="xs:string"/>
+  <bpmn2:itemDefinition id="ItemDefinition_14" isCollection="false" structureRef="xs:integer"/>
+  <bpmn2:itemDefinition id="ItemDefinition_37" isCollection="false" structureRef="xs:long"/>
+  <bpmn2:itemDefinition id="ItemDefinition_50" isCollection="false" structureRef="xs:short"/>
+  <bpmn2:itemDefinition id="ItemDefinition_75" isCollection="false" structureRef="xs:int"/>
   <bpmn2:process id="process_1" name="Default Process" isExecutable="true">
     <bpmn2:startEvent id="StartEvent_1" name="Start">
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
@@ -9,8 +13,8 @@
     <bpmn2:endEvent id="EndEvent_1" name="End">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="StartEvent_1" targetRef="ServiceTask_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ServiceTask_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="StartEvent_1" targetRef="ServiceTask_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ServiceTask_2" targetRef="ExclusiveGateway_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="ServiceTask_5" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_2" name="End">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
@@ -23,13 +27,6 @@
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="ok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_5"/>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="nok" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_6"/>
     <bpmn2:sequenceFlow id="SequenceFlow_6" sourceRef="ServiceTask_6" targetRef="EndEvent_2"/>
-    <bpmn2:serviceTask id="ServiceTask_1" name="MyTask">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="InputOutputSpecification_1">
-        <bpmn2:inputSet id="InputSet_1" name="Input Set 1"/>
-      </bpmn2:ioSpecification>
-    </bpmn2:serviceTask>
     <bpmn2:serviceTask id="ServiceTask_5" name="MyTask2">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
@@ -37,6 +34,14 @@
     <bpmn2:serviceTask id="ServiceTask_6" name="MyTask2">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:serviceTask id="ServiceTask_2" name="GPIOon">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_1">
+        <bpmn2:inputSet id="InputSet_6" name="Input Set 6"/>
+        <bpmn2:outputSet id="OutputSet_3" name="Output Set 3"/>
+      </bpmn2:ioSpecification>
     </bpmn2:serviceTask>
     <bpmn2:property id="Property_1" itemSubjectRef="ItemDefinition_10" name="globalVar"/>
   </bpmn2:process>
@@ -66,12 +71,6 @@
           <dc:Bounds height="15.0" width="35.0" x="299.0" y="337.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_1" bpmnElement="ServiceTask_1">
-        <dc:Bounds height="50.0" width="110.0" x="262.0" y="91.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_12" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="41.0" x="296.0" y="108.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ServiceTask_5" bpmnElement="ServiceTask_5">
         <dc:Bounds height="50.0" width="110.0" x="391.0" y="287.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_14" labelStyle="BPMNLabelStyle_1">
@@ -84,14 +83,20 @@
           <dc:Bounds height="15.0" width="48.0" x="422.0" y="459.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_1" targetElement="BPMNShape_ServiceTask_1">
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_2" bpmnElement="ServiceTask_2">
+        <dc:Bounds height="50.0" width="110.0" x="262.0" y="91.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="43.0" x="295.0" y="108.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_1" targetElement="BPMNShape_ServiceTask_2">
         <di:waypoint xsi:type="dc:Point" x="141.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="199.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="199.0" y="116.0"/>
         <di:waypoint xsi:type="dc:Point" x="262.0" y="116.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_5"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ServiceTask_1" targetElement="BPMNShape_ExclusiveGateway_1">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ServiceTask_2" targetElement="BPMNShape_ExclusiveGateway_1">
         <di:waypoint xsi:type="dc:Point" x="317.0" y="141.0"/>
         <di:waypoint xsi:type="dc:Point" x="317.0" y="214.0"/>
         <di:waypoint xsi:type="dc:Point" x="317.0" y="287.0"/>
