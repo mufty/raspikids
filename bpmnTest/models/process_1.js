@@ -6,20 +6,25 @@ exports.Start = function(data, done) {
 };
 
 exports.GPIOon7 = function(data, done) {
-	this.gpioNum = 7;
-	//data.gpioNum = 7;
-	/*gpio.open(this.gpioNum, "output", function(err) { 
-		gpio.write(this.gpioNum, 1, function() {
+	var myName = arguments.callee.toString();
+	console.log(myName);
+	var gpioNum = 7;
+	gpio.open(gpioNum, "output", function(err) { 
+		gpio.write(gpioNum, 1, function() {
+			gpio.close(gpioNum);
 			done(data);
 		});
-	});*/
-	done(data);
+	});
 };
 
-exports.GPIOon7Done = function(data, done) {
-	console.log(this.gpioNum);
-	//gpio.close(this.gpioNum);
-	done(data);
+exports.GPIOoff7 = function(data, done) {
+	var gpioNum = 7;
+	gpio.open(gpioNum, "output", function(err) { 
+		gpio.write(gpioNum, 0, function() {
+			gpio.close(gpioNum);
+			done(data);
+		});
+	});
 };
 
 exports.MyTask2 = function(data, done) {
