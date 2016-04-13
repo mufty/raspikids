@@ -5,10 +5,8 @@ components.Sleep = {
 		if(initData){
 			var max_sec = new Date().getTime();
 			while (new Date() < max_sec + initData.time) {}
-			    return true;
+			done();
 		}
-		
-		done();
 
 		return {
 			inPort: function(){
