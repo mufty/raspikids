@@ -1,14 +1,24 @@
-//var gpio = require("pi-gpio");
+var gpio = require("pi-gpio");
 
 exports.Start = function(data, done) {
 	// called after the start event arrived at MyStart
 	done(data);
 };
 
-exports.GPIOon = function(data, done) {
-	// called at the beginning of MyTask
-	data.test = "test data";
-	console.log("GPIO on", data);
+exports.GPIOon7 = function(data, done) {
+	this.gpioNum = 7;
+	//data.gpioNum = 7;
+	/*gpio.open(this.gpioNum, "output", function(err) { 
+		gpio.write(this.gpioNum, 1, function() {
+			done(data);
+		});
+	});*/
+	
+};
+
+exports.GPIOon7Done = function(data, done) {
+	console.log(this.gpioNum);
+	//gpio.close(this.gpioNum);
 	done(data);
 };
 
