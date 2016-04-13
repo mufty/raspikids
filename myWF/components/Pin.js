@@ -9,6 +9,10 @@ components.Pin = {
 				console.log("Pin " + initData.gpioPort + " opened");
 				gpio.write(initData.gpioPort, initData.value, function() {
 					console.log("Pin " + initData.gpioPort + " written");
+					if(initData.time){
+						var max_sec = new Date().getTime();
+						while (new Date() < max_sec + initData.time) {}
+					}
 					gpio.close(initData.gpioPort);
 					
 					done();

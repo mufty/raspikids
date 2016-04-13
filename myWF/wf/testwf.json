@@ -4,15 +4,10 @@
 		"data": {
 			"gpioPort": 7,
 			"io": "output",
-			"value": 1
+			"value": 1,
+			"time": 1000
 		}
-	},
-	"Sleep1": {
-		"component": "Sleep",
-		"data": {
-			"time": 2000
-		}
-	},
+	}
 	"Pin2": {
 		"component": "Pin",
 		"data": {
