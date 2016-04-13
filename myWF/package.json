@@ -1,0 +1,7 @@
+{
+  "name": "myWF",
+  "version": "0.0.1",
+  "dependencies": {
+		"pi-gpio": "0.0.8"
+  }
+}
