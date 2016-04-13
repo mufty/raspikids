@@ -6,7 +6,9 @@ components.Pin = {
 
 		if(initData){
 			gpio.open(initData.gpioPort, initData.io, function(err) { 
+				console.log("Pin " + initData.gpioPort + " opened");
 				gpio.write(initData.gpioPort, initData.value, function() {
+					console.log("Pin " + initData.gpioPort + " written");
 					gpio.close(initData.gpioPort);
 				});
 			});
