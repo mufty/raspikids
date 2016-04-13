@@ -302,3 +302,27 @@
 {"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'MyTask2'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460474575979}
 {"process":"Default Process","id":"unknown","description":"Token was put on 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460474575981}
 {"process":"Default Process","id":"unknown","description":"Token arrived at endEvent 'End'","data":{"test":"test data"},"level":"debug","message":"","timestamp":1460474575981}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460536992154}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460536992159}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460536992169}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460536992170}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460537028457}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460537028461}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537028471}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537028471}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460537041659}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460537041664}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537041673}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537041674}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460537237534}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460537237540}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537237549}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537237550}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460537263871}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460537263878}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537263886}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537263887}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'Start'","level":"debug","message":"","timestamp":1460537374424}
+{"process":"Default Process","id":"unknown","description":"Token arrived at startEvent 'Start'","data":{},"level":"debug","message":"","timestamp":1460537374430}
+{"process":"Default Process","id":"unknown","description":"Token was put on 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537374441}
+{"process":"Default Process","id":"unknown","description":"Token arrived at serviceTask 'GPIOon7'","data":{},"level":"debug","message":"","timestamp":1460537374442}

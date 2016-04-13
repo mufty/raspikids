@@ -1,4 +1,5 @@
 var gpio = require("pi-gpio");
+var currentFlowName = null;
 
 exports.Start = function(data, done) {
 	// called after the start event arrived at MyStart
@@ -6,9 +7,7 @@ exports.Start = function(data, done) {
 };
 
 exports.GPIOon7 = function(data, done) {
-	var myName = arguments.callee.toString();
-	console.log(myName);
-	var gpioNum = 7;
+	var gpioNum = parseInt(currentFlowName.replace('GPIOon', ''));
 	gpio.open(gpioNum, "output", function(err) { 
 		gpio.write(gpioNum, 1, function() {
 			gpio.close(gpioNum);
@@ -18,7 +17,7 @@ exports.GPIOon7 = function(data, done) {
 };
 
 exports.GPIOoff7 = function(data, done) {
-	var gpioNum = 7;
+	var gpioNum = parseInt(currentFlowName.replace('GPIOon', ''));
 	gpio.open(gpioNum, "output", function(err) { 
 		gpio.write(gpioNum, 0, function() {
 			gpio.close(gpioNum);
@@ -60,3 +59,24 @@ exports.End = function(data, done) {
 	console.log("end");
 	done(data);
 }; 
+
+
+exports.defaultEventHandler = function(eventType, currentFlowObjectName, handlerName, reason, done) {
+    done(data);
+};
+
+exports.defaultErrorHandler = function(error, done) {
+    // Called if errors are thrown in the event handlers
+    done();
+};
+
+exports.onBeginHandler = function(currentFlowObjectName, data, done) {
+    // do something
+	currentFlowName = currentFlowObjectName;
+    done(data);
+};
+
+exports.onEndHandler = function(currentFlowObjectName, data, done) {
+    // do something
+    done(data);
+};
