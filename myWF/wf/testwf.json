@@ -13,7 +13,17 @@
 		"data": {
 			"gpioPort": 7,
 			"io": "output",
-			"value": 0
+			"value": 0,
+			"time": 1000
+		}
+	},
+	"Pin3": {
+		"component": "Pin",
+		"data": {
+			"gpioPort": 7,
+			"io": "output",
+			"value": 1,
+			"time": 1000
 		}
 	}
 }
