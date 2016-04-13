@@ -13,7 +13,7 @@ exports.GPIOon7 = function(data, done) {
 			done(data);
 		});
 	});*/
-	
+	done(data);
 };
 
 exports.GPIOon7Done = function(data, done) {
