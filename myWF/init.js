@@ -44,8 +44,6 @@ var nextActivity = function(){
 		var initData = currentActivityConf.data;
 		
 		var activity = exports.createActivity(activityClass, initData);
-		
-		nextActivity();
 	}
 };
 
@@ -69,10 +67,10 @@ exports.startWF = function(name){
 	var initData = currentActivityConf.data;
 	
 	var activity = exports.createActivity(activityClass, initData);
-	
-	nextActivity();
 };
 
 exports.createActivity = function(activityClass, initData){
-	return new activityClass.init(initData);
+	return new activityClass.init(initData, function(){
+		nextActivity();
+	});
 };

@@ -1,7 +1,7 @@
 var gpio = require("pi-gpio");
 
 components.Pin = {
-	init: function(initData){
+	init: function(initData, done){
 		console.log("Pin init: " + initData);
 
 		if(initData){
@@ -10,6 +10,8 @@ components.Pin = {
 				gpio.write(initData.gpioPort, initData.value, function() {
 					console.log("Pin " + initData.gpioPort + " written");
 					gpio.close(initData.gpioPort);
+					
+					done();
 				});
 			});
 		}

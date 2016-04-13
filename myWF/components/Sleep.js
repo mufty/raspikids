@@ -1,5 +1,5 @@
 components.Sleep = {
-	init: function(initData){
+	init: function(initData, done){
 		console.log("Sleep: " + initData);
 
 		if(initData){
@@ -7,6 +7,8 @@ components.Sleep = {
 			while (new Date() < max_sec + initData.time) {}
 			    return true;
 		}
+		
+		done();
 
 		return {
 			inPort: function(){
