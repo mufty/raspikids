@@ -47,6 +47,10 @@ var nextActivity = function(){
 	}
 };
 
+var stayOpen = function() {
+	setTimeout(stayOpen, 500);
+};
+
 exports.startWF = function(name){
 	var data = require('./' + workflowDir + name + '.json');
 	
@@ -67,6 +71,8 @@ exports.startWF = function(name){
 	var initData = currentActivityConf.data;
 	
 	var activity = exports.createActivity(activityClass, initData);
+	
+	stayOpen();
 };
 
 exports.createActivity = function(activityClass, initData){
