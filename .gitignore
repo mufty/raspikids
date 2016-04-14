@@ -1,3 +1,4 @@
 tasks
 logs
 *.log
+/node-red/node_modules
