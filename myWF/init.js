@@ -51,9 +51,9 @@ var nextActivity = function(){
 var end = false;
 
 var stayOpen = function() {
-	setTimeout(function(){
-		while(!end){}
-	}, 500);
+	if(!end){
+		setTimeout(function(){}, 500);
+	}
 };
 
 var cleanUp = function(){
@@ -90,7 +90,7 @@ exports.createActivity = function(activityClass, initData, setting){
 	return new activityClass.init(initData, function(endWF){
 		if(endWF){
 			cleanUp();
-			end == true;
+			end = true;
 			return;
 		}
 		
