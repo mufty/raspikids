@@ -52,7 +52,7 @@ var end = false;
 
 var stayOpen = function() {
 	if(!end){
-		setTimeout(function(){}, 500);
+		setTimeout(stayOpen, 500);
 	}
 };
 
