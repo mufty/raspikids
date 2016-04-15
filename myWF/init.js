@@ -1,4 +1,6 @@
 var fs = require("fs");
+var gpio = require('rpi-gpio');
+gpio.setMode(gpio.MODE_BCM);
 
 var componentsDir = 'components/';
 var workflowDir = 'wf/';
@@ -43,12 +45,22 @@ var nextActivity = function(){
 		
 		var initData = currentActivityConf.data;
 		
-		var activity = exports.createActivity(activityClass, initData);
+		var activity = exports.createActivity(activityClass, initData, currentActivityConf);
 	}
 };
 
+var end = false;
+
 var stayOpen = function() {
-	setTimeout(stayOpen, 500);
+	setTimeout(function(){
+		while(!end){}
+	}, 500);
+};
+
+var cleanUp = function(){
+	gpio.destroy(function() {
+        console.log('All pins unexported');
+    });
 };
 
 exports.startWF = function(name){
@@ -70,13 +82,19 @@ exports.startWF = function(name){
 	
 	var initData = currentActivityConf.data;
 	
-	var activity = exports.createActivity(activityClass, initData);
+	var activity = exports.createActivity(activityClass, initData, currentActivityConf);
 	
 	stayOpen();
 };
 
-exports.createActivity = function(activityClass, initData){
-	return new activityClass.init(initData, function(){
+exports.createActivity = function(activityClass, initData, setting){
+	return new activityClass.init(initData, function(endWF){
+		if(endWF){
+			cleanUp();
+			end == true;
+			return;
+		}
+		
 		nextActivity();
-	});
+	}, setting);
 };
