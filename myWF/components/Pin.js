@@ -1,5 +1,4 @@
 var gpio = require('rpi-gpio');
-gpio.setMode(gpio.MODE_BCM);
 
 components.Pin = {
 	init: function(initData, done, settings){

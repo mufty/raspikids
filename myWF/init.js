@@ -1,6 +1,5 @@
 var fs = require("fs");
 var gpio = require('rpi-gpio');
-gpio.setMode(gpio.MODE_BCM);
 
 var componentsDir = 'components/';
 var workflowDir = 'wf/';
