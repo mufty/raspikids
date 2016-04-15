@@ -53,6 +53,8 @@ var end = false;
 var stayOpen = function() {
 	if(!end){
 		setTimeout(stayOpen, 500);
+	} else {
+		console.log("All processes ended");
 	}
 };
 

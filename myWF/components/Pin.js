@@ -13,7 +13,6 @@ components.Pin = {
 			gpio.setup(initData.gpioPort, inout, function(){
 				console.log("Pin " + initData.gpioPort + " opened");
 				if(inout == gpio.DIR_IN){
-					console.log(initData.gpioPort);
 					gpio.read(initData.gpioPort, function(err, value) {
 						if (err) throw err;
 						
@@ -25,7 +24,6 @@ components.Pin = {
 						done(settings.end);
 				    });
 				} else {
-					console.log(initData.gpioPort);
 					gpio.write(initData.gpioPort, initData.value, function(err) {
 				        if (err) throw err;
 				        
