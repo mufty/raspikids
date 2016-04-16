@@ -21,19 +21,24 @@ for(var i in data){
 	console.log(components);
 }
 
-var nextActivity = function(){
-	var foundCurrent = false;
-	for(var k in currentWorkflow){
-		var a = currentWorkflow[k];
-		if(!foundCurrent){
-			if(k == currentActivityId){
-				currentActivityId = null;
-				foundCurrent = true;
+var nextActivity = function(target){
+	if(target){
+		currentActivityConf = currentWorkflow[target];
+		currentActivityId = target;
+	} else {
+		var foundCurrent = false;
+		for(var k in currentWorkflow){
+			var a = currentWorkflow[k];
+			if(!foundCurrent){
+				if(k == currentActivityId){
+					currentActivityId = null;
+					foundCurrent = true;
+				}
+			} else {
+				currentActivityConf = a;
+				currentActivityId = k;
+				break;
 			}
-		} else {
-			currentActivityConf = a;
-			currentActivityId = k;
-			break;
 		}
 	}
 	
@@ -89,13 +94,13 @@ exports.startWF = function(name){
 };
 
 exports.createActivity = function(activityClass, initData, setting){
-	return new activityClass.init(initData, function(endWF){
+	return new activityClass.init(initData, function(endWF, target){
 		if(endWF){
 			cleanUp();
 			end = true;
 			return;
 		}
 		
-		nextActivity();
+		nextActivity(target);
 	}, setting);
 };

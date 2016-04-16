@@ -19,12 +19,24 @@
 	},
 	"Pin3": {
 		"component": "Pin",
-		"end": true,
 		"data": {
 			"gpioPort": 7,
 			"io": "output",
 			"value": true,
 			"time": 1000
+		}
+	},
+	"Pin4": {
+		"component": "Pin",
+		"data": {
+			"gpioPort": 11,
+			"io": "input",
+			"out": [
+			        {
+			        	"target": "Pin1",
+			        	"onChange": true
+			        }
+		        	]
 		}
 	}
 }
