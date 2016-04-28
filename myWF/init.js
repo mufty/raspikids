@@ -1,8 +1,8 @@
 var fs = require("fs");
 //var gpio = require('rpi-gpio');
 
-var componentsDir = 'components/';
-var workflowDir = 'wf/';
+componentsDir = 'components/';
+workflowDir = 'wf/';
 
 components = {};
 

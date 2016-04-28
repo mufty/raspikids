@@ -1,12 +1,11 @@
+require('./BaseComponent.js');
 var gpio = require('rpi-gpio');
 
-components.Pin = class Pin {
+components.Pin = class Pin extends BaseComponent {
 	constructor(initData, done, settings){
+		super(initData, done, settings);
 		console.log("Pin init: " + initData);
 		this.clean = false;
-		this.initData = initData;
-		this.done = done;
-		this.settings = settings;
 		
 		this._startUp();
 	}
@@ -37,7 +36,7 @@ components.Pin = class Pin {
 										executed = true;
 										console.log('Channel ' + channel + ' value is now ' + value);
 										if(channel == this.initData.gpioPort)
-											gpio.destroy(function() {this.done(this.settings.end, out[i].target)});
+											gpio.destroy(function() {this.next(out[i].target)});
 									}
 								});
 							} else {
@@ -49,7 +48,7 @@ components.Pin = class Pin {
 										while (new Date() < max_sec + this.initData.time) {}
 									}
 									
-									this.done(this.settings.end, out[i].target);
+									this.next(out[i].target);
 							    });
 							}
 						}
@@ -62,7 +61,7 @@ components.Pin = class Pin {
 								while (new Date() < max_sec + this.initData.time) {}
 							}
 							
-							this.done(this.settings.end);
+							this.next(this.settings.end);
 					    });
 					}
 				});
