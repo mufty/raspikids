@@ -1,5 +1,5 @@
 var fs = require("fs");
-var gpio = require('rpi-gpio');
+//var gpio = require('rpi-gpio');
 
 var componentsDir = 'components/';
 var workflowDir = 'wf/';
@@ -94,7 +94,7 @@ exports.startWF = function(name){
 };
 
 exports.createActivity = function(activityClass, initData, setting){
-	return new activityClass.init(initData, function(endWF, target){
+	return new activityClass(initData, function(endWF, target){
 		if(endWF){
 			cleanUp();
 			end = true;

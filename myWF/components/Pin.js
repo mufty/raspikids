@@ -1,29 +1,33 @@
 var gpio = require('rpi-gpio');
 
-components.Pin = {
-	init: function(initData, done, settings){
+components.Pin = class Pin {
+	constructor(initData, done, settings){
 		console.log("Pin init: " + initData);
+		this.clean = false;
+		this.initData = initData;
+		this.done = done;
+		this.settings = settings;
 		
-		var clean = false;
-		
-		//wait for clean up
+		this._startUp();
+	}
+	_startUp(){
 		gpio.destroy(function() {
 	        console.log('All pins unexported');
-	        if(initData){
+	        if(this.initData){
 				var inout = gpio.DIR_IN;
 				
 				var edge = gpio.EDGE_BOTH;
 				
-				if(initData.io == "output"){
+				if(this.initData.io == "output"){
 					inout = gpio.DIR_OUT;
 					edge = gpio.EDGE_NONE;
 				}
 				
-				gpio.setup(initData.gpioPort, inout, edge, function(){
+				gpio.setup(this.initData.gpioPort, inout, edge, function(){
 					console.log("Pin " + initData.gpioPort + " opened");
 					if(inout == gpio.DIR_IN){
 						
-						var out = initData.out;
+						var out = this.initData.out;
 						
 						for(var i in out){
 							if(out[i].onChange){
@@ -32,46 +36,37 @@ components.Pin = {
 									if(!executed){
 										executed = true;
 										console.log('Channel ' + channel + ' value is now ' + value);
-										if(channel == initData.gpioPort)
-											gpio.destroy(function() {done(settings.end, out[i].target)});
+										if(channel == this.initData.gpioPort)
+											gpio.destroy(function() {this.done(this.settings.end, out[i].target)});
 									}
 								});
 							} else {
-								gpio.read(initData.gpioPort, function(err, value) {
+								gpio.read(this.initData.gpioPort, function(err, value) {
 									if (err) throw err;
 									
-									if(initData.time){
+									if(this.initData.time){
 										var max_sec = new Date().getTime();
-										while (new Date() < max_sec + initData.time) {}
+										while (new Date() < max_sec + this.initData.time) {}
 									}
 									
-									done(settings.end, out[i].target);
+									this.done(this.settings.end, out[i].target);
 							    });
 							}
 						}
 					} else {
-						gpio.write(initData.gpioPort, initData.value, function(err) {
+						gpio.write(this.initData.gpioPort, this.initData.value, function(err) {
 					        if (err) throw err;
 					        
-					        if(initData.time){
+					        if(this.initData.time){
 								var max_sec = new Date().getTime();
-								while (new Date() < max_sec + initData.time) {}
+								while (new Date() < max_sec + this.initData.time) {}
 							}
 							
-							done(settings.end);
+							this.done(this.settings.end);
 					    });
 					}
 				});
 			}
 	    });
-
-		return {
-			inPort: function(){
-				
-			},
-			outPort: function(){
-				
-			}
-		}; 
-	}	
+	}
 };
