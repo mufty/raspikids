@@ -23,7 +23,7 @@ components.Pin = class Pin extends BaseComponent {
 				}
 				
 				gpio.setup(this.initData.gpioPort, inout, edge, function(){
-					console.log("Pin " + initData.gpioPort + " opened");
+					console.log("Pin " + this.initData.gpioPort + " opened");
 					if(inout == gpio.DIR_IN){
 						
 						var out = this.initData.out;
@@ -36,9 +36,11 @@ components.Pin = class Pin extends BaseComponent {
 										executed = true;
 										console.log('Channel ' + channel + ' value is now ' + value);
 										if(channel == this.initData.gpioPort)
-											gpio.destroy(function() {this.next(out[i].target)});
+											gpio.destroy(function() {
+												this.next(out[i].target)
+											}.bind(this));
 									}
-								});
+								}.bind(this));
 							} else {
 								gpio.read(this.initData.gpioPort, function(err, value) {
 									if (err) throw err;
@@ -49,7 +51,7 @@ components.Pin = class Pin extends BaseComponent {
 									}
 									
 									this.next(out[i].target);
-							    });
+							    }.bind(this));
 							}
 						}
 					} else {
@@ -62,10 +64,10 @@ components.Pin = class Pin extends BaseComponent {
 							}
 							
 							this.next(this.settings.end);
-					    });
+					    }.bind(this));
 					}
-				});
+				}.bind(this));
 			}
-	    });
+	    }.bind(this));
 	}
 };
