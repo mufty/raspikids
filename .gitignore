@@ -1,4 +1,2 @@
-tasks
-logs
-*.log
-/node-red/node_modules
+/node_modules/
+/.settings/
