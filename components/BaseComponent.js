@@ -4,8 +4,8 @@ BaseComponent = class BaseComponent {
 		this.settings = settings;
 		this.initData = initData;
 	}
-	next(target){
-		this.done(this.settings.end, target);
+	next(target, data){
+		this.done(this.settings.end, target, data);
 	}
 	handleOutputs(){
 		if(this.settings.end)
@@ -14,14 +14,24 @@ BaseComponent = class BaseComponent {
         	var out = this.initData.out;
 			
 			for(var i in out){
-				this.next(out[i].target);
+				var o = out[i];
+				var data;
+				if(o["export"]){
+					data = {};
+					for(var k in o['export']){
+						var to = o['export'][k];
+						var from = k;
+						data[to] = this[from];
+					}
+				}
+				this.next(o.target, data);
 			}
         }
 	}
 	handleTimeout(){
-		if(this.initData.time){
+		if(this.initData.input && this.initData.input.time){
 			var max_sec = new Date().getTime();
-			while (new Date() < max_sec + this.initData.time) {}
+			while (new Date() < max_sec + this.initData.input.time) {}
 		}
 	}
 };

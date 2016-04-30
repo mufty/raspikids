@@ -2,6 +2,7 @@
   "name": "myWF",
   "version": "0.0.1",
   "dependencies": {
-		"rpi-gpio": "0.7.0"
+		"rpi-gpio": "0.7.0",
+		"merge": "1.2.0"
   }
 }

@@ -1,11 +1,27 @@
 {
+	"TIP1": {
+		"component": "TimedInputPin",
+		"data": {
+			"gpioPort": 12,
+			"out": [
+			        {
+			        	"target": "Pin1",
+			        	"export": {
+			        		"measurement": "time"
+			        	}
+			        }
+		        	]
+		}
+	},
 	"Pin1": {
 		"component": "Pin",
 		"data": {
 			"gpioPort": 7,
 			"io": "output",
 			"value": true,
-			"time": 1000,
+			"input": {
+				"time": 1000
+			},
 			"out": [
 			        {
 			        	"target": "Pin2"
@@ -19,7 +35,9 @@
 			"gpioPort": 7,
 			"io": "output",
 			"value": false,
-			"time": 1000,
+			"input": {
+				"time": 1000
+			},
 			"out": [
 			        {
 			        	"target": "Pin3"
@@ -33,7 +51,9 @@
 			"gpioPort": 7,
 			"io": "output",
 			"value": true,
-			"time": 1000,
+			"input": {
+				"time": 1000
+			},
 			"out": [
 			        {
 			        	"target": "Pin4"

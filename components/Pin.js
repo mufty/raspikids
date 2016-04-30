@@ -45,9 +45,10 @@ components.Pin = class Pin extends BaseComponent {
 								gpio.read(this.initData.gpioPort, function(err, value) {
 									if (err) throw err;
 									
-									if(this.initData.time){
+									if(this.initData.input && this.initData.input.time){
+										console.log(this.initData.input.time);
 										var max_sec = new Date().getTime();
-										while (new Date() < max_sec + this.initData.time) {}
+										while (new Date() < max_sec + this.initData.input.time) {}
 									}
 									
 									this.next(out[i].target);

@@ -1,5 +1,5 @@
 var fs = require("fs");
-//var gpio = require('rpi-gpio');
+var merge = require('merge');
 
 componentsDir = 'components/';
 workflowDir = 'wf/';
@@ -21,7 +21,7 @@ for(var i in data){
 	console.log(components);
 }
 
-var nextActivity = function(target){
+var nextActivity = function(target, data){
 	if(target){
 		currentActivityConf = currentWorkflow[target];
 		currentActivityId = target;
@@ -48,6 +48,12 @@ var nextActivity = function(target){
 			throw "Component for: " + currentActivityId + " not found";
 		
 		var initData = currentActivityConf.data;
+		
+		if(data && initData.input){
+			initData.input = merge.recursive(true, initData.input, data);
+			
+			console.log("merge: " + initData.input.time);
+		}
 		
 		exports.createActivity(activityClass, initData, currentActivityConf);
 	}
@@ -95,14 +101,14 @@ exports.startWF = function(name){
 
 exports.createActivity = function(activityClass, initData, setting){
 	setTimeout(function(){
-		new activityClass(initData, function(endWF, target){
+		new activityClass(initData, function(endWF, target, data){
 			if(endWF){
 				cleanUp();
 				end = true;
 				return;
 			}
 			
-			nextActivity(target);
+			nextActivity(target, data);
 		}, setting);
 	});
 };
