@@ -5,7 +5,12 @@
 			"gpioPort": 7,
 			"io": "output",
 			"value": true,
-			"time": 1000
+			"time": 1000,
+			"out": [
+			        {
+			        	"target": "Pin2"
+			        }
+		        	]
 		}
 	},
 	"Pin2": {
@@ -14,7 +19,12 @@
 			"gpioPort": 7,
 			"io": "output",
 			"value": false,
-			"time": 1000
+			"time": 1000,
+			"out": [
+			        {
+			        	"target": "Pin3"
+			        }
+		        	]
 		}
 	},
 	"Pin3": {
@@ -23,7 +33,12 @@
 			"gpioPort": 7,
 			"io": "output",
 			"value": true,
-			"time": 1000
+			"time": 1000,
+			"out": [
+			        {
+			        	"target": "Pin4"
+			        }
+		        	]
 		}
 	},
 	"Pin4": {
