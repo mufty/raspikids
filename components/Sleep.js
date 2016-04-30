@@ -1,6 +1,6 @@
 require('./BaseComponent.js');
 
-components.Sleep = class Pin extends BaseComponent {
+components.Sleep = class Sleep extends BaseComponent {
 	constructor(initData, done, settings){
 		super(initData, done, settings);
 		console.log("Pin init: " + initData);
@@ -9,9 +9,9 @@ components.Sleep = class Pin extends BaseComponent {
 		this._startUp();
 	}
 	_startUp(){
-		if(initData){
+		if(this.initData){
 			var max_sec = new Date().getTime();
-			while (new Date() < max_sec + initData.time) {}
+			while (new Date() < max_sec + this.initData.time) {}
 			
 			this.handleOutputs();
 		}
