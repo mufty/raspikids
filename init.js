@@ -49,7 +49,7 @@ var nextActivity = function(target){
 		
 		var initData = currentActivityConf.data;
 		
-		var activity = exports.createActivity(activityClass, initData, currentActivityConf);
+		exports.createActivity(activityClass, initData, currentActivityConf);
 	}
 };
 
@@ -88,19 +88,21 @@ exports.startWF = function(name){
 	
 	var initData = currentActivityConf.data;
 	
-	var activity = exports.createActivity(activityClass, initData, currentActivityConf);
+	exports.createActivity(activityClass, initData, currentActivityConf);
 	
 	stayOpen();
 };
 
 exports.createActivity = function(activityClass, initData, setting){
-	return new activityClass(initData, function(endWF, target){
-		if(endWF){
-			cleanUp();
-			end = true;
-			return;
-		}
-		
-		nextActivity(target);
-	}, setting);
+	setTimeout(function(){
+		new activityClass(initData, function(endWF, target){
+			if(endWF){
+				cleanUp();
+				end = true;
+				return;
+			}
+			
+			nextActivity(target);
+		}, setting);
+	});
 };
