@@ -1,8 +1,29 @@
 {
-  "name": "myWF",
-  "version": "0.0.1",
+  "name": "Raspi Kids",
+  "description": "Raspberry PI GPIO framework for teaching kids programming",
+  "homepage": "https://github.com/mufty/raspikids#readme",
+  "license": "MIT",
+  "main": "start.js",
+  "version": "0.1.0",
   "dependencies": {
 		"rpi-gpio": "0.7.0",
 		"merge": "1.2.0"
+  },
+  "keywords:": [
+    "raspberry",
+    "pi",
+    "gpio",
+    "learning",
+    "kids"
+  ],
+  "maintainers": [
+    {
+      "email": "gubriansky@sernato.sk",
+      "name": "michalgubriansky"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mufty/raspikids.git"
   }
 }
