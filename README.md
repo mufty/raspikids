@@ -20,7 +20,7 @@ This project is still under development but the workflow engine can be mess with
 
 For installation just do:
 
-npm install raspikids
+npm install RaspiKids
 
 You need to have gpio-admin installed on the PI as described here:
 
