@@ -1,6 +1,6 @@
 
 
-# Raspi Kids
+# Raspi Kids 
 
 The idea of this project is to teach kids programming using raspberry pi (maybe beaglebone or similar generic purpose board later) and GPIO. Our goal is to have everything running on the PI so you don't need anything but the PI, a keyboard and a monitor to start. So we keep it as cheap as possible for schools to be able to afford a simple setup if they want to.
 
@@ -16,6 +16,21 @@ On top of this workflow we should have a "kid friendly" UI that would generate t
 
 ## Usage
 
+This project is still under development but the workflow engine can be mess with if you desire.
+
+For installation just do:
+
+npm install raspikids
+
+You need to have gpio-admin installed on the PI as described here:
+
+https://github.com/quick2wire/quick2wire-gpio-admin
+
+We use the harmony mode for nodejs for the engine to allow ES6 so to start just do this:
+
+sudo node --harmony start.js
+
+If you want to switch or write a new workflow just edit the start.js for now and provide the name of the workflow JSON there just omit the .json it's added automatically. When adding workflows add them to the wf directory that's where they are being read from.
 
 
 ## Developing
