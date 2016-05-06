@@ -3,6 +3,7 @@ BaseComponent = class BaseComponent {
 		this.done = done;
 		this.settings = settings;
 		this.initData = initData;
+		this.id = this.settings.id;
 	}
 	startUp(){
 		//implement in the child

@@ -7,7 +7,7 @@ components.Pin = class Pin extends BaseComponent {
 		console.log("Pin init: " + initData);
 		this.clean = false;
 		
-		this.startUp();
+		//this.startUp();
 	}
 	startUp(){
 		gpio.destroy(function() {

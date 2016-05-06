@@ -6,11 +6,7 @@ workflowDir = 'wf/';
 
 components = {};
 
-currentActivityId = null;
-
-var currentActivityConf = null;
-
-var currentWorkflow;
+var initializedWorkflow = {};
 
 var data = fs.readdirSync(componentsDir);
 	
@@ -22,41 +18,22 @@ for(var i in data){
 }
 
 var nextActivity = function(target, data){
-	if(target){
-		currentActivityConf = currentWorkflow[target];
-		currentActivityId = target;
-	} else {
-		var foundCurrent = false;
-		for(var k in currentWorkflow){
-			var a = currentWorkflow[k];
-			if(!foundCurrent){
-				if(k == currentActivityId){
-					currentActivityId = null;
-					foundCurrent = true;
-				}
-			} else {
-				currentActivityConf = a;
-				currentActivityId = k;
-				break;
-			}
-		}
+	if(!target)
+		throw "No target specified for next activity";
+	
+	var activity = initializedWorkflow[target];
+	
+	var initData = activity.initData;
+	
+	if(data && initData.input){
+		initData.input = merge.recursive(true, initData.input, data);
+		
+		console.log("merge: " + initData.input.time);
 	}
 	
-	if(currentActivityId){
-		var activityClass = components[currentActivityConf.component];
-		if(!activityClass)
-			throw "Component for: " + currentActivityId + " not found";
-		
-		var initData = currentActivityConf.data;
-		
-		if(data && initData.input){
-			initData.input = merge.recursive(true, initData.input, data);
-			
-			console.log("merge: " + initData.input.time);
-		}
-		
-		exports.createActivity(activityClass, initData, currentActivityConf);
-	}
+	setTimeout(function(){
+		activity.startUp();
+	});
 };
 
 var end = false;
@@ -78,37 +55,51 @@ var cleanUp = function(){
 exports.startWF = function(name){
 	var data = require('./' + workflowDir + name + '.json');
 	
+	initializedWorkflow = {};
+	
+	var currentWorkflow;
+	var firstId = null;
+	var currentActivityId = null;
+	var currentActivityConf = null;
+	
+	
 	currentWorkflow = data;
 	
+	console.info('initializing workflow components...');
+	
 	for(var k in data){
-		if(currentActivityId)
-			break;
+		if(!firstId)
+			firstId = k;
 		
 		currentActivityId = k;
 		currentActivityConf = data[k];
+		currentActivityConf.id = k;
+		
+		console.info('init component ' + currentActivityConf.component + ' with ID: ' + k);
+		
+		var activityClass = components[currentActivityConf.component];
+		if(!activityClass)
+			throw "Component for: " + currentActivityId + " not found";
+	
+		var initData = currentActivityConf.data;
+		
+		initializedWorkflow[k] = exports.createActivity(activityClass, initData, currentActivityConf);
+		
 	}
 	
-	var activityClass = components[currentActivityConf.component];
-	if(!activityClass)
-		throw "Component for: " + currentActivityId + " not found";
-	
-	var initData = currentActivityConf.data;
-	
-	exports.createActivity(activityClass, initData, currentActivityConf);
+	nextActivity(firstId);
 	
 	stayOpen();
 };
 
 exports.createActivity = function(activityClass, initData, setting){
-	setTimeout(function(){
-		new activityClass(initData, function(endWF, target, data){
-			if(endWF){
-				cleanUp();
-				end = true;
-				return;
-			}
-			
-			nextActivity(target, data);
-		}, setting);
-	});
+	return new activityClass(initData, function(endWF, target, data){
+		if(endWF){
+			cleanUp();
+			end = true;
+			return;
+		}
+		
+		nextActivity(target, data);
+	}, setting);
 };

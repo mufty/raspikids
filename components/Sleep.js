@@ -6,7 +6,7 @@ components.Sleep = class Sleep extends BaseComponent {
 		console.log("Pin init: " + initData);
 		this.clean = false;
 		
-		this.startUp();
+		//this.startUp();
 	}
 	startUp(){
 		if(this.initData){
