@@ -1,3 +1,3 @@
-var init = require("./init.js");
+var init = require("./wf_engine.js");
 
 init.startWF('lightBlink');
