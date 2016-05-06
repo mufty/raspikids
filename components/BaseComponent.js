@@ -4,6 +4,9 @@ BaseComponent = class BaseComponent {
 		this.settings = settings;
 		this.initData = initData;
 	}
+	startUp(){
+		//implement in the child
+	}
 	next(target, data){
 		this.done(this.settings.end, target, data);
 	}

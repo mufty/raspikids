@@ -7,9 +7,9 @@ components.Pin = class Pin extends BaseComponent {
 		console.log("Pin init: " + initData);
 		this.clean = false;
 		
-		this._startUp();
+		this.startUp();
 	}
-	_startUp(){
+	startUp(){
 		gpio.destroy(function() {
 	        console.log('All pins unexported');
 	        if(this.initData){

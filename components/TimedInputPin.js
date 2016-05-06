@@ -6,7 +6,7 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 		super(initData, done, settings);
 		this.measurement = 0;
 	}
-	_startUp(){
+	startUp(){
 		gpio.destroy(function() {
 	        console.log('All pins unexported');
 	        this._out();

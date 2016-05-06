@@ -6,9 +6,9 @@ components.Sleep = class Sleep extends BaseComponent {
 		console.log("Pin init: " + initData);
 		this.clean = false;
 		
-		this._startUp();
+		this.startUp();
 	}
-	_startUp(){
+	startUp(){
 		if(this.initData){
 			var max_sec = new Date().getTime();
 			while (new Date() < max_sec + this.initData.time) {}
