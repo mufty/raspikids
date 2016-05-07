@@ -7,10 +7,9 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 		this.measurement = 0;
 	}
 	startUp(){
-		gpio.destroy(function() {
-	        console.log('All pins unexported');
-	        this._out();
-	    }.bind(this));
+		this.unexport(function(){
+			this._out();
+		}.bind(this));
 	}
 	_out(){
 		if(this.initData){
@@ -19,7 +18,7 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 	    		gpio.write(this.initData.gpioPort, false, function(err) {
 	    	        if (err) throw err;
 	    	        
-	    	        gpio.destroy(function() {
+	    	        this.unexport(function(){
 	    	        	this._input();
 	    	        }.bind(this));
 	    	        
@@ -33,7 +32,7 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 				gpio.read(this.initData.gpioPort, function(err, value) {
 			        if (err) throw err;
 			        
-			        gpio.destroy(function() {
+			        this.unexport(function(){
 			        	if(!value){
 			        		this.measurement += 1;
 			        		this._input();
@@ -41,7 +40,6 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 					        this.handleOutputs();
 			        	}
 			        }.bind(this));
-			        
 			    }.bind(this));
 			}.bind(this));
 		}

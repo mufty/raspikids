@@ -1,9 +1,23 @@
+var fs = require('fs');
+
+var gpio = require('rpi-gpio');
+
 BaseComponent = class BaseComponent {
 	constructor(initData, done, settings){
 		this.done = done;
 		this.settings = settings;
 		this.initData = initData;
 		this.id = this.settings.id;
+	}
+	unexport(cb){
+		if(this.initData && this.initData.gpioPort){
+			var pin = this.initData.gpioPort;
+			var finished = false;
+			
+			//TODO fix this to unexport just the port used not all of them
+		//	fs.writeFile(this.PATH + '/unexport', pin, cb);
+			gpio.destroy(cb);
+		}
 	}
 	startUp(){
 		//implement in the child
@@ -38,4 +52,7 @@ BaseComponent = class BaseComponent {
 			while (new Date() < max_sec + this.initData.input.time) {}
 		}
 	}
+	get PATH() {
+        return '/sys/class/gpio';
+    }
 };
