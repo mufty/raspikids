@@ -6,11 +6,13 @@ components.Pin = class Pin extends BaseComponent {
 		super(initData, done, settings);
 		console.log("Pin init: " + initData);
 		this.clean = false;
-		
-		//this.startUp();
 	}
 	startUp(){
-		this.unexport(this.init.bind(this));
+		myEmitter.once('unexported' + this.initData.gpioPort, function() {
+			this.init();
+		}.bind(this));
+		
+		this.unexport();
 	}
 	
 	init(){
@@ -28,9 +30,11 @@ components.Pin = class Pin extends BaseComponent {
 								executed = true;
 								console.log('Channel ' + channel + ' value is now ' + value);
 								if(channel == this.initData.gpioPort){
-									this.unexport(function(){
-										this.next(out[i].target)
+									myEmitter.once('unexported' + this.initData.gpioPort, function() {
+										this.next(out[i].target);
 									}.bind(this));
+									
+									this.unexport();
 								}
 							}
 						}.bind(this));
@@ -54,7 +58,11 @@ components.Pin = class Pin extends BaseComponent {
 			        
 			        this.handleTimeout();
 			        
-			        this.handleOutputs();
+			        myEmitter.once('unexported' + this.initData.gpioPort, function() {
+			        	this.handleOutputs();
+					}.bind(this));
+			        
+			        this.unexport();
 			    }.bind(this));
 			}
 		}.bind(this));

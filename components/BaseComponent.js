@@ -2,6 +2,16 @@ var fs = require('fs');
 
 var gpio = require('rpi-gpio');
 
+const EventEmitter = require('events');
+const util = require('util');
+
+function MyEmitter() {
+  EventEmitter.call(this);
+}
+util.inherits(MyEmitter, EventEmitter);
+
+myEmitter = new MyEmitter();
+
 BaseComponent = class BaseComponent {
 	constructor(initData, done, settings){
 		this.done = done;
@@ -12,11 +22,13 @@ BaseComponent = class BaseComponent {
 	unexport(cb){
 		if(this.initData && this.initData.gpioPort){
 			var pin = this.initData.gpioPort;
-			var finished = false;
-			
-			//TODO fix this to unexport just the port used not all of them
-		//	fs.writeFile(this.PATH + '/unexport', pin, cb);
-			gpio.destroy(cb);
+			/*fs.writeFile(this.PATH + '/unexport', pin, function(){
+				console.log('unexported ' + pin);
+				myEmitter.emit('unexported' + pin);
+			});*/
+			gpio.destroy(function(){
+				myEmitter.emit('unexported' + pin);
+			});
 		}
 	}
 	startUp(){
@@ -55,4 +67,36 @@ BaseComponent = class BaseComponent {
 	get PATH() {
         return '/sys/class/gpio';
     }
+	get pinMapping(){
+		return {
+				"3": 0,
+				"5": 1,
+				"7": 4,
+				"8": 14,
+				"10": 15,
+				"11": 17,
+				"12": 18,
+				"13": 21,
+				"15": 22,
+				"16": 23,
+				"18": 24,
+				"19": 10,
+				"21": 9,
+				"22": 25,
+				"23": 11,
+				"24": 8,
+				"26": 7,
+
+				// Model A+ and Model B+ pins
+				"29": 5,
+				"31": 6,
+				"32": 12,
+				"33": 13,
+				"35": 19,
+				"36": 16,
+				"37": 26,
+				"38": 20,
+				"40": 21
+		};
+	}
 };
