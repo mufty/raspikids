@@ -3,7 +3,7 @@
   "description": "Raspberry PI GPIO framework for teaching kids programming",
   "homepage": "https://github.com/mufty/raspikids#readme",
   "license": "MIT",
-  "main": "start.js",
+  "main": "ui/index.html",
   "version": "0.1.3",
   "dependencies": {
 		"rpi-gpio": "0.7.0",
@@ -16,6 +16,9 @@
     "learning",
     "kids"
   ],
+  "scripts": {
+	  "start": "nw"
+  },
   "maintainers": [
     {
       "email": "gubriansky@sernato.sk",
