@@ -22,13 +22,17 @@ BaseComponent = class BaseComponent {
 	unexport(cb){
 		if(this.initData && this.initData.gpioPort){
 			var pin = this.initData.gpioPort;
-			/*fs.writeFile(this.PATH + '/unexport', pin, function(){
-				console.log('unexported ' + pin);
-				myEmitter.emit('unexported' + pin);
-			});*/
-			gpio.destroy(function(){
-				myEmitter.emit('unexported' + pin);
-			});
+			if(this.initData.io && this.initData.io == 'output'){
+				gpio.write(pin, false, function(){
+					gpio.unexportPin(pin, function(){
+						myEmitter.emit('unexported' + pin);
+					});
+				}.bind(this));
+			} else {
+				gpio.unexportPin(pin, function(){
+					myEmitter.emit('unexported' + pin);
+				});
+			}
 		}
 	}
 	startUp(){
