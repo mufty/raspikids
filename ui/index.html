@@ -4,6 +4,9 @@
   <title>RaspiKids</title>
 </head>
 <body>
+<ul id="allWorkflows">
+	
+</ul>
 <div>
 	<svg id="graph">
 	</svg>
@@ -11,65 +14,118 @@
 <script>
 var d3 = require('d3');
 
-console.log('aaa');
+var workflowDir = 'wf/';
+
+var fs = require('fs');
+
+fs.readdir(workflowDir, function (err, data) {
+	if (err) throw err;
+	
+	var ul = d3.select("#allWorkflows");
+	for(var i in data){
+		var fileName = data[i];
+		var li = ul.append('li');
+		li.text(fileName);
+		li.on('click', function(){
+			loadWorkflow(this.textContent);
+		});
+	}
+});
 
 var vis = d3.select("#graph");
 
-var w = 900, h = 400;
-vis.attr("width", w)
-   .attr("height", h);
+var loadWorkflow = function(textContent){
+	vis.html('');
+	var w = 900, h = 400;
+	vis.attr("width", w)
+	   .attr("height", h);
 
-var data = require('../wf/lightBlink.json');
+	var data = require('../' + workflowDir + textContent);
 
-var nodes = [];
+	var nodes = [];
 
-var links = [];
+	var links = [];
 
-//make array of WF and links
-for(var k in data){
-	var o = data[k];
-	o.id = k;
-	nodes.push(o);
-	
-	if(o.data && o.data.out){
-		for(var i in o.data.out){
-			var outObject = o.data.out[i];
-			var link = {
-					source: o,
-					target: data[outObject.target]
-				};
-			links.push(link);
+	//make array of WF and links
+	for(var k in data){
+		var o = data[k];
+		o.id = k;
+		nodes.push(o);
+		
+		if(o.data && o.data.out){
+			for(var i in o.data.out){
+				var outObject = o.data.out[i];
+				var link = {
+						source: o,
+						target: data[outObject.target]
+					};
+				links.push(link);
+			}
 		}
 	}
-}
-             
-vis.selectAll("circle .nodes")
-	.data(nodes)
-	.enter()
-	.append("circle")
-	.attr("class", "nodes")
-	.attr("cx", function(d) { return d.meta_data.x; })
-	.attr("cy", function(d) { return d.meta_data.y; })
-	.attr("r", "10px")
-	.attr("fill", "black");
 	
-vis.selectAll(".line")
-	.data(links)
-	.enter()
-	.append("line")
-	.attr("x1", function(d) { 
-		return d.source.meta_data.x 
-	})
-	.attr("y1", function(d) { 
-		return d.source.meta_data.y 
-	})
-	.attr("x2", function(d) { 
-		return d.target.meta_data.x 
-	})
-	.attr("y2", function(d) { 
-		return d.target.meta_data.y 
-	})
-	.style("stroke", "rgb(6,120,155)");
+	var drag = d3.behavior.drag()
+    	.on('dragstart', function(d) {
+    		console.log(d);
+    		console.log(links);
+    		var circle = d3.select(this);
+    		circle.style('fill', 'red');
+    	})
+    	.on('drag', function(d) {
+    		var circle = d3.select(this);
+    		d.meta_data.x = d3.event.x;
+    		d.meta_data.y = d3.event.y;
+    		circle.attr('cx', d3.event.x)
+				.attr('cy', d3.event.y);
+    		
+    		vis.selectAll("line")
+    		   .data(links).attr("x1", function(d) { 
+    				return d.source.meta_data.x 
+    			})
+    			.attr("y1", function(d) { 
+    				return d.source.meta_data.y 
+    			})
+    			.attr("x2", function(d) { 
+    				return d.target.meta_data.x 
+    			})
+    			.attr("y2", function(d) { 
+    				return d.target.meta_data.y 
+    			});
+    	})
+    	.on('dragend', function(d) { 
+    		var circle = d3.select(this);
+    		circle.style('fill', 'black'); 
+    	});
+	
+	var circle = vis.selectAll("circle .nodes")
+		.data(nodes)
+		.enter()
+		.append("circle")
+		.attr("class", "nodes draggableCircle")
+		.attr("cx", function(d) { return d.meta_data.x; })
+		.attr("cy", function(d) { return d.meta_data.y; })
+		.attr("r", "10px")
+		.attr("fill", "black")
+		.call(drag);
+		
+	vis.selectAll(".line")
+		.data(links)
+		.enter()
+		.append("line")
+		.attr("x1", function(d) { 
+			return d.source.meta_data.x 
+		})
+		.attr("y1", function(d) { 
+			return d.source.meta_data.y 
+		})
+		.attr("x2", function(d) { 
+			return d.target.meta_data.x 
+		})
+		.attr("y2", function(d) { 
+			return d.target.meta_data.y 
+		})
+		.style("stroke", "rgb(6,120,155)");
+}
 
 </script>  
 </body>
