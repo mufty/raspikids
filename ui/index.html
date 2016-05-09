@@ -1,36 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Context Menu</title>
+  <title>RaspiKids</title>
 </head>
 <body>
-
-<p>'Right click' to show context menu.</p>
-
+<div>
+	<svg id="graph">
+	</svg>
+</div>
 <script>
-// Create an empty context menu
-var menu = new nw.Menu();
+var d3 = require('d3');
 
-// Add some items with label
-menu.append(new nw.MenuItem({
-  label: 'Item A',
-  click: function(){
-    alert('You have clicked at "Item A"');
-  }
-}));
-menu.append(new nw.MenuItem({ label: 'Item B' }));
-menu.append(new nw.MenuItem({ type: 'separator' }));
-menu.append(new nw.MenuItem({ label: 'Item C' }));
+console.log('aaa');
 
-// Hooks the "contextmenu" event
-document.body.addEventListener('contextmenu', function(ev) {
-  // Prevent showing default context menu
-  ev.preventDefault();
-  // Popup the native context menu at place you click
-  menu.popup(ev.x, ev.y);
+var vis = d3.select("#graph");
 
-  return false;
-}, false);
+var w = 900, h = 400;
+vis.attr("width", w)
+   .attr("height", h);
+
+var data = require('../wf/lightBlink.json');
+
+var nodes = [];
+
+var links = [];
+
+//make array of WF and links
+for(var k in data){
+	var o = data[k];
+	o.id = k;
+	nodes.push(o);
+	
+	if(o.data && o.data.out){
+		for(var i in o.data.out){
+			var outObject = o.data.out[i];
+			var link = {
+					source: o,
+					target: data[outObject.target]
+				};
+			links.push(link);
+		}
+	}
+}
+             
+vis.selectAll("circle .nodes")
+	.data(nodes)
+	.enter()
+	.append("circle")
+	.attr("class", "nodes")
+	.attr("cx", function(d) { return d.meta_data.x; })
+	.attr("cy", function(d) { return d.meta_data.y; })
+	.attr("r", "10px")
+	.attr("fill", "black");
+	
+vis.selectAll(".line")
+	.data(links)
+	.enter()
+	.append("line")
+	.attr("x1", function(d) { 
+		return d.source.meta_data.x 
+	})
+	.attr("y1", function(d) { 
+		return d.source.meta_data.y 
+	})
+	.attr("x2", function(d) { 
+		return d.target.meta_data.x 
+	})
+	.attr("y2", function(d) { 
+		return d.target.meta_data.y 
+	})
+	.style("stroke", "rgb(6,120,155)");
 
 </script>  
 </body>

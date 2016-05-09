@@ -18,7 +18,7 @@
     "kids"
   ],
   "scripts": {
-	  "start": "nw"
+	  "start": "electron ui/main.js"
   },
   "maintainers": [
     {
@@ -29,5 +29,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mufty/raspikids.git"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.8"
   }
 }
