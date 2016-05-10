@@ -31,6 +31,6 @@
     "url": "git+https://github.com/mufty/raspikids.git"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-prebuilt": "0.37.8"
   }
 }

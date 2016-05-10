@@ -2,11 +2,52 @@
 <html>
 <head>
   <title>RaspiKids</title>
+  <style type="text/css">
+  g,
+  g text {
+  	cursor: pointer;
+  }
+  circle.end {
+  	fill: #D94747;
+  }
+  
+  circle.start {
+  	fill: #56D947;
+  }
+  
+  circle {
+  	fill: #E8E8E8;
+  }
+  
+  circle.dragging {
+  	fill: #FFFACF;
+  }
+  
+  line {
+  	stroke: rgb(6,120,155);
+  }
+  
+  div.wfHolder {
+  	position: absolute;
+  	top: 90px;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 100;
+  }
+  
+  div.menu {
+  	position: absolute;
+  	z-index: 1000;
+  }
+  </style>
 </head>
 <body>
 <input id="start_btn" type="button" value="Start"/>
-<ul id="allWorkflows"></ul>
-<div>
+<div class="menu">
+	<ul id="allWorkflows"></ul>
+</div>
+<div class="wfHolder">
 	<svg id="graph">
 	</svg>
 </div>
@@ -47,7 +88,7 @@ window.onload = function(){
 
 	var loadWorkflow = function(textContent){
 		vis.html('');
-		var w = 900, h = 400;
+		var w = '100%', h = '100%';
 		vis.attr("width", w)
 		   .attr("height", h);
 
@@ -75,19 +116,24 @@ window.onload = function(){
 			}
 		}
 		
+		var determineClass = function(d){
+			if(d.meta_data.end)
+				return 'end';
+			else if(d.meta_data.start)
+    			return 'start';
+			return '';
+		};
+		
 		var drag = d3.behavior.drag()
 	    	.on('dragstart', function(d) {
-	    		console.log(d);
-	    		console.log(links);
-	    		var circle = d3.select(this);
-	    		circle.style('fill', 'red');
+	    		var group = d3.select(this);
+	    		group.selectAll('circle').attr('class', 'dragging');
 	    	})
 	    	.on('drag', function(d) {
-	    		var circle = d3.select(this);
+	    		var group = d3.select(this);
 	    		d.meta_data.x = d3.event.x;
 	    		d.meta_data.y = d3.event.y;
-	    		circle.attr('cx', d3.event.x)
-					.attr('cy', d3.event.y);
+	    		group.attr('transform', "translate("+d.meta_data.x+","+d.meta_data.y+")");
 	    		
 	    		vis.selectAll("line")
 	    		   .data(links).attr("x1", function(d) { 
@@ -104,21 +150,11 @@ window.onload = function(){
 	    			});
 	    	})
 	    	.on('dragend', function(d) { 
-	    		var circle = d3.select(this);
-	    		circle.style('fill', 'black'); 
+	    		var group = d3.select(this);
+	    		group.selectAll('circle').attr('class', determineClass);
+	    		console.log(data);
 	    	});
 		
-		var circle = vis.selectAll("circle .nodes")
-			.data(nodes)
-			.enter()
-			.append("circle")
-			.attr("class", "nodes draggableCircle")
-			.attr("cx", function(d) { return d.meta_data.x; })
-			.attr("cy", function(d) { return d.meta_data.y; })
-			.attr("r", "10px")
-			.attr("fill", "black")
-			.call(drag);
-			
 		vis.selectAll(".line")
 			.data(links)
 			.enter()
@@ -134,8 +170,23 @@ window.onload = function(){
 			})
 			.attr("y2", function(d) { 
 				return d.target.meta_data.y 
-			})
-			.style("stroke", "rgb(6,120,155)");
+			});
+		
+		var elem = vis.selectAll("g")
+			.data(nodes);
+		
+		var elemEnter = elem.enter()
+	        .append("g")
+	        .attr("transform", function(d){return "translate("+d.meta_data.x+","+d.meta_data.y+")"})
+	        .call(drag);
+		
+		var circle = elemEnter.append("circle")
+	        .attr("r", "30px")
+	        .attr("class", determineClass);
+		
+		elemEnter.append("text")
+	        .attr("dx", function(d){return -10})
+	        .text(function(d){return d.id});
 	}
 };
 </script>  
