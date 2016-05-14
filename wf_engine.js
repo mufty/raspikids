@@ -53,7 +53,10 @@ var cleanUp = function(){
 };
 
 exports.startWF = function(name){
+	console.log("loading wf: " + name);
 	var data = require('./' + workflowDir + name + '.json');
+	
+	console.log("loaded wf: " + name);
 	
 	initializedWorkflow = {};
 	
