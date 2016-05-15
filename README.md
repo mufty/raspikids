@@ -23,29 +23,35 @@ This project is still under development but the workflow engine can be mess with
 
 For installation just do:
 
-npm install RaspiKids
+npm install -g RaspiKids
 
 You need to have gpio-admin installed on the PI as described here:
 
 https://github.com/quick2wire/quick2wire-gpio-admin
 
+We have an example workflows that you can checkout at: 
+
+https://github.com/mufty/raspikids-example.git
+
+So if you create a directory you can just clone these to play around with it.
+
+git clone https://github.com/mufty/raspikids-example.git
+
 ### Workflow engine
 
-We use the harmony mode for nodejs for the engine to allow ES6 so to start just do this just pass the process name to be executed as the last parameter:
+To use just the engine withouth the UI you can execute just some workflow by doing:
 
-cd node_modules\RaspiKids
+sudo raspi-kids-wf lightBlink
 
-sudo node --harmony start.js <process-name>
+The lightBlink is just an example workflow from our repository as described above.
 
-If you want to write a new workflow just create a new json file in the wf directory. When adding workflows add them to the wf directory that's where they are being read from.
+Place any new workflows in the "wf" sub directory that's where the engine is trying to find them.
 
 ### UI
 
 You can run the ui for the workflow now:
 
-cd node_modules\RaspiKids
-
-sudo npm start
+sudo raspi-kids
 
 You can see all the existing workflows there just click them to load and if you want to start them press the start button. You can also drag and drop the nodes to see the connections. There is no save for now that's WIP.  
 

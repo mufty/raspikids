@@ -3,12 +3,13 @@
   "description": "Raspberry PI GPIO framework for teaching kids programming",
   "homepage": "https://github.com/mufty/raspikids#readme",
   "license": "MIT",
-  "main": "ui/index.html",
+  "main": "ui/main.js",
   "version": "0.1.4",
   "dependencies": {
 		"rpi-gpio": "https://github.com/mufty/rpi-gpio.js.git",
 		"merge": "^1.2.0",
-		"d3": "^3.5.17"
+		"d3": "^3.5.17",
+		"electron-prebuilt": "^1.0.1"
   },
   "keywords": [
     "raspberry",
@@ -17,8 +18,12 @@
     "learning",
     "kids"
   ],
+  "bin": {
+	  "raspi-kids": "bin/main.js",
+	  "raspi-kids-wf": "bin/start.js"
+  },
   "scripts": {
-	  "start": "electron --harmony ui/main.js"
+	  "start": "electron ui/main.js"
   },
   "maintainers": [
     {
@@ -29,8 +34,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mufty/raspikids.git"
-  },
-  "devDependencies": {
-    "electron-prebuilt": "^1.0.1"
   }
 }

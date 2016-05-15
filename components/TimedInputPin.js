@@ -1,3 +1,5 @@
+"use strict";
+
 require('./Pin.js');
 var gpio = require('rpi-gpio');
 
@@ -7,7 +9,7 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 		this.measurement = 0;
 	}
 	startUp(){
-		myEmitter.once('unexported' + this.initData.gpioPort, function() {
+		this.myEmitter.once('unexported' + this.initData.gpioPort, function() {
 			this._out();
 		}.bind(this));
 		
@@ -37,7 +39,7 @@ components.TimedInputPin = class TimedInputPin extends components.Pin {
 		        		this.measurement += 1;
 		        		this._input();
 		        	} else {
-		        		myEmitter.once('unexported' + this.initData.gpioPort, function() {
+		        		this.myEmitter.once('unexported' + this.initData.gpioPort, function() {
 		        			this.handleOutputs();
 		        		}.bind(this));
 		        		

@@ -88,7 +88,7 @@ window.onload = function(){
 			}
 			
 			console.log("starting child process");
-			currentChildProcess = spawn('node', ['--harmony', 'start.js', loadedWF.replace('.json','')]);
+			currentChildProcess = spawn('raspi-kids-wf', [loadedWF.replace('.json','')]);
 			
 			currentChildProcess.stdout.on('data', (data) => {
 				  console.log(`stdout: ${data}`);

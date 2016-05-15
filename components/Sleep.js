@@ -1,6 +1,8 @@
+"use strict";
+
 require('./BaseComponent.js');
 
-components.Sleep = class Sleep extends BaseComponent {
+components.Sleep = class Sleep extends components.BaseComponent {
 	constructor(initData, done, settings){
 		super(initData, done, settings);
 		console.log("Pin init: " + initData);

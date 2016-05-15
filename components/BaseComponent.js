@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require('fs');
 
 var gpio = require('rpi-gpio');
@@ -10,14 +12,15 @@ function MyEmitter() {
 }
 util.inherits(MyEmitter, EventEmitter);
 
-myEmitter = new MyEmitter();
+var myEmitter = new MyEmitter();
 
-BaseComponent = class BaseComponent {
+components.BaseComponent = class BaseComponent {
 	constructor(initData, done, settings){
 		this.done = done;
 		this.settings = settings;
 		this.initData = initData;
 		this.id = this.settings.id;
+		this.myEmitter = myEmitter;
 	}
 	unexport(cb){
 		if(this.initData && this.initData.gpioPort){
@@ -25,13 +28,13 @@ BaseComponent = class BaseComponent {
 			if(this.initData.io && this.initData.io == 'output'){
 				gpio.write(pin, false, function(){
 					gpio.unexportPin(pin, function(){
-						myEmitter.emit('unexported' + pin);
-					});
+						this.myEmitter.emit('unexported' + pin);
+					}.bind(this));
 				}.bind(this));
 			} else {
 				gpio.unexportPin(pin, function(){
-					myEmitter.emit('unexported' + pin);
-				});
+					this.myEmitter.emit('unexported' + pin);
+				}.bind(this));
 			}
 		}
 	}
