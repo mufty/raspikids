@@ -4,7 +4,7 @@
   "homepage": "https://github.com/mufty/raspikids#readme",
   "license": "MIT",
   "main": "ui/main.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
 		"rpi-gpio": "https://github.com/mufty/rpi-gpio.js.git",
 		"merge": "^1.2.0",
