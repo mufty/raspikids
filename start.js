@@ -1,3 +1,10 @@
 var init = require("./wf_engine.js");
 
-init.startWF('lightBlink');
+var startprocess = "";
+
+process.argv.forEach(function (val, index, array) {
+  if(index == 2)
+	  startprocess = val;
+});
+
+init.startWF(startprocess);

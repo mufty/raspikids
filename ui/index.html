@@ -53,6 +53,10 @@
 </div>
 <script>
 window.onload = function(){
+	const spawn = require('child_process').spawn;
+	
+	var currentChildProcess;
+	
 	var d3 = require('d3');
 
 	var workflowDir = 'wf/';
@@ -78,9 +82,29 @@ window.onload = function(){
 	
 	d3.select("#start_btn").on('click', function(){
 		if(loadedWF){
-			var init = require("../wf_engine.js");
+			if(currentChildProcess){
+				console.log("child process already running kill it!");
+				currentChildProcess.kill();
+			}
+			
+			console.log("starting child process");
+			currentChildProcess = spawn('node', ['--harmony', 'start.js', loadedWF.replace('.json','')]);
+			
+			currentChildProcess.stdout.on('data', (data) => {
+				  console.log(`stdout: ${data}`);
+			});
+			
+			currentChildProcess.stderr.on('data', (data) => {
+				  console.log(`stderr: ${data}`);
+			});
+			
+			currentChildProcess.on('close', (code) => {
+				  console.log(`child process exited with code ${code}`);
+			});
+			
+			/*var init = require("../wf_engine.js");
 
-			init.startWF(loadedWF.replace('.json',''));
+			init.startWF(loadedWF.replace('.json',''));*/
 		}
 	});
 
