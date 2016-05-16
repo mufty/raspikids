@@ -53,7 +53,7 @@ You can run the ui for the workflow now:
 
 sudo raspi-kids
 
-You can see all the existing workflows there just click them to load and if you want to start them press the start button. You can also drag and drop the nodes to see the connections. There is no save for now that's WIP.  
+You can see all the existing workflows there just click them to load and if you want to start them press the start button. You can also drag and drop the nodes to see the connections. Save button is currently able to just do updates of existing workflows. Creation of new workflows will be available once the UI is able to draw.  
 
 
 ## Developing

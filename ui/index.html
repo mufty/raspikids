@@ -51,6 +51,7 @@ div.menu {
 </head>
 <body>
 	<input id="start_btn" type="button" value="Start" />
+	<input id="save_btn" type="button" value="Save" />
 	<div class="selectedData"></div>
 	<div class="menu">
 		<ul id="allWorkflows"></ul>
@@ -69,8 +70,10 @@ window.onload = function(){
 	var selectedItem;
 	
 	var currentChildProcess;
+	var currentData;
 	
 	var d3 = require('d3');
+	var crud = require('../ui/crud.js');
 
 	var workflowDir = 'wf/';
 
@@ -122,10 +125,12 @@ window.onload = function(){
 			currentChildProcess.on('close', (code) => {
 				  console.log(`child process exited with code ${code}`);
 			});
-			
-			/*var init = require("../wf_engine.js");
-
-			init.startWF(loadedWF.replace('.json',''));*/
+		}
+	});
+	
+	d3.select("#save_btn").on('click', function(){
+		if(currentData){
+			crud.save(currentData, loadedWF);
 		}
 	});
 
@@ -163,6 +168,8 @@ window.onload = function(){
 		});
 
 		var data = require('../' + workflowDir + textContent);
+		
+		currentData = data;
 
 		var nodes = [];
 
