@@ -51,6 +51,7 @@ div.menu {
 </head>
 <body>
 	<input id="start_btn" type="button" value="Start" />
+	<div class="selectedData"></div>
 	<div class="menu">
 		<ul id="allWorkflows"></ul>
 	</div>
@@ -65,6 +66,7 @@ window.onload = function(){
 	var circleRadius = 30;
 	
 	var selectedNode;
+	var selectedItem;
 	
 	var currentChildProcess;
 	
@@ -75,6 +77,14 @@ window.onload = function(){
 	var fs = require('fs');
 	
 	var loadedWF = null;
+	
+	var showData = function(){
+		if(selectedItem){
+			d3.select('.selectedData').html(JSON.stringify(selectedItem));
+		} else {
+			d3.select('.selectedData').html('');
+		}
+	};
 
 	fs.readdir(workflowDir, function (err, data) {
 		if (err) throw err;
@@ -146,7 +156,10 @@ window.onload = function(){
     		if(!d3.event.defaultPrevented && selectedNode && selectedNode != this){
     			selectedNode.selectAll('circle').attr('class', determineClass);
     			selectedNode = null;
+    			selectedItem = null;
     		}
+			
+    		showData();
 		});
 
 		var data = require('../' + workflowDir + textContent);
@@ -192,6 +205,9 @@ window.onload = function(){
 	    		group.selectAll('circle').attr('class', 'selected');
 	    		
 	    		selectedNode = group;
+	    		selectedItem = d;
+	    		
+	    		showData();
 	    	})
 	    	.on('drag', function(d) {
 	    		var group = d3.select(this);
@@ -216,7 +232,7 @@ window.onload = function(){
 	        .attr("transform", function(d){return "translate("+d.meta_data.x+","+d.meta_data.y+")"})
 	        .attr("class", "node")
 	        .call(drag)
-	        .on('click', function(){
+	        .on('click', function(d){
 	        	d3.event.stopPropagation();
 	        	if(!d3.event.defaultPrevented){
 	        		if(selectedNode){
@@ -227,6 +243,8 @@ window.onload = function(){
 		    		group.selectAll('circle').attr('class', 'selected');
 		    		
 		    		selectedNode = group;
+		    		selectedItem = d;
+		    		showData();
 	    		}
 	        });
 		
