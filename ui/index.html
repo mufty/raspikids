@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RaspiKids</title>
-  <style type="text/css">
-  g,
-  g text {
-  	cursor: pointer;
-  }
-  circle.end {
-  	fill: #D94747;
-  }
-  
-  circle.start {
-  	fill: #56D947;
-  }
-  
-  circle {
-  	fill: #E8E8E8;
-  }
-  
-  circle.dragging {
-  	fill: #FFFACF;
-  }
-  
-  line {
-  	stroke: rgb(6,120,155);
-  }
-  
-  div.wfHolder {
-  	position: absolute;
-  	top: 90px;
-  	bottom: 0;
-  	left: 0;
-  	right: 0;
-  	z-index: 100;
-  }
-  
-  div.menu {
-  	position: absolute;
-  	z-index: 1000;
-  }
-  </style>
+<title>RaspiKids</title>
+<style type="text/css">
+g,g text {
+	cursor: pointer;
+}
+
+circle.end {
+	fill: #D94747;
+}
+
+circle.start {
+	fill: #56D947;
+}
+
+circle {
+	fill: #E8E8E8;
+}
+
+circle.dragging {
+	fill: #FFFACF;
+}
+
+line {
+	stroke: rgb(6, 120, 155);
+}
+
+.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 1.5px;
+	-webkit-svg-shadow: 0 1px 0 #fff;
+}
+
+div.wfHolder {
+	position: absolute;
+	top: 90px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+}
+
+div.menu {
+	position: absolute;
+	z-index: 1000;
+}
+</style>
 </head>
 <body>
-<input id="start_btn" type="button" value="Start"/>
-<div class="menu">
-	<ul id="allWorkflows"></ul>
-</div>
-<div class="wfHolder">
-	<svg id="graph">
+	<input id="start_btn" type="button" value="Start" />
+	<div class="menu">
+		<ul id="allWorkflows"></ul>
+	</div>
+	<div class="wfHolder">
+		<svg id="graph">
 	</svg>
-</div>
-<script>
+	</div>
+	<script>
 window.onload = function(){
 	const spawn = require('child_process').spawn;
+	
+	var circleRadius = 30;
 	
 	var currentChildProcess;
 	
@@ -112,6 +121,20 @@ window.onload = function(){
 
 	var loadWorkflow = function(textContent){
 		vis.html('');
+		
+		vis.append("defs").selectAll("marker")
+    			.data(["suit", "licensing", "resolved"])
+	  		.enter().append("marker")
+	    		.attr("id", function(d) { return d; })
+	    		.attr("viewBox", "0 -5 10 10")
+			    .attr("refX", 15)
+			    .attr("refY", -1.5)
+			    .attr("markerWidth", 6)
+			    .attr("markerHeight", 6)
+			    .attr("orient", "auto")
+			.append("path")
+			    .attr("d", "M0,-5L10,0L0,5");
+		
 		var w = '100%', h = '100%';
 		vis.attr("width", w)
 		   .attr("height", h);
@@ -159,60 +182,48 @@ window.onload = function(){
 	    		d.meta_data.y = d3.event.y;
 	    		group.attr('transform', "translate("+d.meta_data.x+","+d.meta_data.y+")");
 	    		
-	    		vis.selectAll("line")
-	    		   .data(links).attr("x1", function(d) { 
-	    				return d.source.meta_data.x 
-	    			})
-	    			.attr("y1", function(d) { 
-	    				return d.source.meta_data.y 
-	    			})
-	    			.attr("x2", function(d) { 
-	    				return d.target.meta_data.x 
-	    			})
-	    			.attr("y2", function(d) { 
-	    				return d.target.meta_data.y 
-	    			});
+	    		vis.selectAll(".link")
+	    		   .data(links).attr("d", linkArc);
 	    	})
 	    	.on('dragend', function(d) { 
 	    		var group = d3.select(this);
 	    		group.selectAll('circle').attr('class', determineClass);
 	    		console.log(data);
 	    	});
-		
-		vis.selectAll(".line")
-			.data(links)
-			.enter()
-			.append("line")
-			.attr("x1", function(d) { 
-				return d.source.meta_data.x 
-			})
-			.attr("y1", function(d) { 
-				return d.source.meta_data.y 
-			})
-			.attr("x2", function(d) { 
-				return d.target.meta_data.x 
-			})
-			.attr("y2", function(d) { 
-				return d.target.meta_data.y 
-			});
-		
-		var elem = vis.selectAll("g")
+	    	
+	    var elem = vis.selectAll(".node")
 			.data(nodes);
 		
 		var elemEnter = elem.enter()
 	        .append("g")
 	        .attr("transform", function(d){return "translate("+d.meta_data.x+","+d.meta_data.y+")"})
+	        .attr("class", "node")
 	        .call(drag);
 		
 		var circle = elemEnter.append("circle")
-	        .attr("r", "30px")
+	        .attr("r", circleRadius + "px")
 	        .attr("class", determineClass);
 		
 		elemEnter.append("text")
 	        .attr("dx", function(d){return -10})
 	        .text(function(d){return d.id});
+	    	
+	    var linkArc = function(d){
+  			var dx = d.target.meta_data.x - d.source.meta_data.x,
+			dy = d.target.meta_data.y - d.source.meta_data.y,
+			//dr = Math.sqrt(dx * dx + dy * dy);
+			dr = 100;
+			return "M" + d.source.meta_data.x + "," + d.source.meta_data.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.meta_data.x + "," + d.target.meta_data.y;
+	    };
+		
+		var path = vis.append("g").selectAll("path")
+    		.data(links)
+  			.enter().append("path")
+    		.attr("class", function(d) { return "link"; })
+    		.attr("marker-end", function(d) { return "url(#suit)"; })
+    		.attr("d", linkArc);
 	}
 };
-</script>  
+</script>
 </body>
 </html>
