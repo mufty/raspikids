@@ -19,7 +19,7 @@ circle {
 	fill: #E8E8E8;
 }
 
-circle.dragging {
+circle.selected {
 	fill: #FFFACF;
 }
 
@@ -63,6 +63,8 @@ window.onload = function(){
 	const spawn = require('child_process').spawn;
 	
 	var circleRadius = 30;
+	
+	var selectedNode;
 	
 	var currentChildProcess;
 	
@@ -138,6 +140,14 @@ window.onload = function(){
 		var w = '100%', h = '100%';
 		vis.attr("width", w)
 		   .attr("height", h);
+		
+		vis.on('click', function(){
+			//reset selected class
+    		if(!d3.event.defaultPrevented && selectedNode && selectedNode != this){
+    			selectedNode.selectAll('circle').attr('class', determineClass);
+    			selectedNode = null;
+    		}
+		});
 
 		var data = require('../' + workflowDir + textContent);
 
@@ -173,8 +183,15 @@ window.onload = function(){
 		
 		var drag = d3.behavior.drag()
 	    	.on('dragstart', function(d) {
+	    		//reset selected class
+	    		if(selectedNode){
+	    			selectedNode.selectAll('circle').attr('class', determineClass);
+	    		}
+	    		
 	    		var group = d3.select(this);
-	    		group.selectAll('circle').attr('class', 'dragging');
+	    		group.selectAll('circle').attr('class', 'selected');
+	    		
+	    		selectedNode = group;
 	    	})
 	    	.on('drag', function(d) {
 	    		var group = d3.select(this);
@@ -186,9 +203,9 @@ window.onload = function(){
 	    		   .data(links).attr("d", linkArc);
 	    	})
 	    	.on('dragend', function(d) { 
-	    		var group = d3.select(this);
+	    		/*var group = d3.select(this);
 	    		group.selectAll('circle').attr('class', determineClass);
-	    		console.log(data);
+	    		console.log(data);*/
 	    	});
 	    	
 	    var elem = vis.selectAll(".node")
@@ -198,7 +215,20 @@ window.onload = function(){
 	        .append("g")
 	        .attr("transform", function(d){return "translate("+d.meta_data.x+","+d.meta_data.y+")"})
 	        .attr("class", "node")
-	        .call(drag);
+	        .call(drag)
+	        .on('click', function(){
+	        	d3.event.stopPropagation();
+	        	if(!d3.event.defaultPrevented){
+	        		if(selectedNode){
+		    			selectedNode.selectAll('circle').attr('class', determineClass);
+		    		}
+		    		
+		    		var group = d3.select(this);
+		    		group.selectAll('circle').attr('class', 'selected');
+		    		
+		    		selectedNode = group;
+	    		}
+	        });
 		
 		var circle = elemEnter.append("circle")
 	        .attr("r", circleRadius + "px")
