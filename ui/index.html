@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="raspikidsApp">
 <head>
 <title>RaspiKids</title>
+
 <script src="../bower_components/angular/angular.min.js"></script>
+
+<script>
+app = angular.module('raspikidsApp', []);
+</script>
+
+<script src="services/ElementService.js"></script>
+<script src="services/WorkflowService.js"></script>
+<script src="directives/elementForm.js"></script>
+<script src="controllers/ElementFormCtrl.js"></script>
+<script src="controllers/MenuController.js"></script>
+<script src="controllers/DrawWFController.js"></script>
+
 <style type="text/css">
 g,g text {
 	cursor: pointer;
@@ -51,257 +64,19 @@ div.menu {
 </style>
 </head>
 <body>
-	<input id="start_btn" type="button" value="Start" />
-	<input id="save_btn" type="button" value="Save" />
-	<div class="selectedData"></div>
-	<div class="menu">
-		<ul id="allWorkflows"></ul>
+	<div class="selectedData" ng-controller="ElementFormCtrl">
+		<element-form data="selectedItem"></element-form>
 	</div>
-	<div class="wfHolder">
+	<div class="menu" ng-controller="MenuController">
+		<input id="start_btn" ng-click="start()" type="button" value="Start" />
+		<input id="save_btn" ng-click="save()" type="button" value="Save" />
+		<ul id="allWorkflows">
+			<li ng-repeat="d in data" ng-click="loadWorkflow(d)">{{d}}</li>
+		</ul>
+	</div>
+	<div class="wfHolder" ng-controller="DrawWFController">
 		<svg id="graph">
-	</svg>
+		</svg>
 	</div>
-	<script>
-window.onload = function(){
-	const spawn = require('child_process').spawn;
-	
-	var circleRadius = 30;
-	
-	var selectedNode;
-	var selectedItem;
-	
-	var currentChildProcess;
-	var currentData;
-	
-	var d3 = require('d3');
-	var crud = require('../ui/crud.js');
-
-	var workflowDir = 'wf/';
-
-	var fs = require('fs');
-	
-	var loadedWF = null;
-	
-	var generateFormElement = function(value, key){
-		if(typeof(value) == 'string'){
-			return '<label for="id_'+key+'">'+key+'</label><input id="id_'+key+'" type="text" value="'+value+'"/>';
-		}
-		return '';
-	};
-	
-	var generateHtmlForObject = function(){
-		
-	};
-	
-	var showData = function(){
-		if(selectedItem){
-			//d3.select('.selectedData').html(JSON.stringify(selectedItem));
-			
-			//generate form
-			var html = '';
-			
-			for(var k in selectedItem){
-				if(typeof(selectedItem[k]) != 'object'){
-					html += generateFormElement(selectedItem[k], k);
-				}
-			}
-			
-			d3.select('.selectedData').html(html);
-		} else {
-			d3.select('.selectedData').html('');
-		}
-	};
-
-	fs.readdir(workflowDir, function (err, data) {
-		if (err) throw err;
-		
-		var ul = d3.select("#allWorkflows");
-		for(var i in data){
-			var fileName = data[i];
-			var li = ul.append('li');
-			li.text(fileName);
-			li.on('click', function(){
-				loadedWF = this.textContent;
-				loadWorkflow(this.textContent);
-			});
-		}
-	});
-	
-	d3.select("#start_btn").on('click', function(){
-		if(loadedWF){
-			if(currentChildProcess){
-				console.log("child process already running kill it!");
-				currentChildProcess.kill();
-			}
-			
-			console.log("starting child process");
-			currentChildProcess = spawn('raspi-kids-wf', [loadedWF.replace('.json','')]);
-			
-			currentChildProcess.stdout.on('data', (data) => {
-				  console.log(`stdout: ${data}`);
-			});
-			
-			currentChildProcess.stderr.on('data', (data) => {
-				  console.log(`stderr: ${data}`);
-			});
-			
-			currentChildProcess.on('close', (code) => {
-				  console.log(`child process exited with code ${code}`);
-			});
-		}
-	});
-	
-	d3.select("#save_btn").on('click', function(){
-		if(currentData){
-			crud.save(currentData, loadedWF);
-		}
-	});
-
-	var vis = d3.select("#graph");
-
-	var loadWorkflow = function(textContent){
-		vis.html('');
-		
-		vis.append("defs").selectAll("marker")
-    			.data(["suit", "licensing", "resolved"])
-	  		.enter().append("marker")
-	    		.attr("id", function(d) { return d; })
-	    		.attr("viewBox", "0 -5 10 10")
-			    .attr("refX", 15)
-			    .attr("refY", -1.5)
-			    .attr("markerWidth", 6)
-			    .attr("markerHeight", 6)
-			    .attr("orient", "auto")
-			.append("path")
-			    .attr("d", "M0,-5L10,0L0,5");
-		
-		var w = '100%', h = '100%';
-		vis.attr("width", w)
-		   .attr("height", h);
-		
-		vis.on('click', function(){
-			//reset selected class
-    		if(!d3.event.defaultPrevented && selectedNode && selectedNode != this){
-    			selectedNode.selectAll('circle').attr('class', determineClass);
-    			selectedNode = null;
-    			selectedItem = null;
-    		}
-			
-    		showData();
-		});
-
-		var data = require('../' + workflowDir + textContent);
-		
-		currentData = data;
-
-		var nodes = [];
-
-		var links = [];
-
-		//make array of WF and links
-		for(var k in data){
-			var o = data[k];
-			o.id = k;
-			nodes.push(o);
-			
-			if(o.data && o.data.out){
-				for(var i in o.data.out){
-					var outObject = o.data.out[i];
-					var link = {
-							source: o,
-							target: data[outObject.target]
-						};
-					links.push(link);
-				}
-			}
-		}
-		
-		var determineClass = function(d){
-			if(d.meta_data.end)
-				return 'end';
-			else if(d.meta_data.start)
-    			return 'start';
-			return '';
-		};
-		
-		var drag = d3.behavior.drag()
-	    	.on('dragstart', function(d) {
-	    		//reset selected class
-	    		if(selectedNode){
-	    			selectedNode.selectAll('circle').attr('class', determineClass);
-	    		}
-	    		
-	    		var group = d3.select(this);
-	    		group.selectAll('circle').attr('class', 'selected');
-	    		
-	    		selectedNode = group;
-	    		selectedItem = d;
-	    		
-	    		showData();
-	    	})
-	    	.on('drag', function(d) {
-	    		var group = d3.select(this);
-	    		d.meta_data.x = d3.event.x;
-	    		d.meta_data.y = d3.event.y;
-	    		group.attr('transform', "translate("+d.meta_data.x+","+d.meta_data.y+")");
-	    		
-	    		vis.selectAll(".link")
-	    		   .data(links).attr("d", linkArc);
-	    	})
-	    	.on('dragend', function(d) { 
-	    		/*var group = d3.select(this);
-	    		group.selectAll('circle').attr('class', determineClass);
-	    		console.log(data);*/
-	    	});
-	    	
-	    var elem = vis.selectAll(".node")
-			.data(nodes);
-		
-		var elemEnter = elem.enter()
-	        .append("g")
-	        .attr("transform", function(d){return "translate("+d.meta_data.x+","+d.meta_data.y+")"})
-	        .attr("class", "node")
-	        .call(drag)
-	        .on('click', function(d){
-	        	d3.event.stopPropagation();
-	        	if(!d3.event.defaultPrevented){
-	        		if(selectedNode){
-		    			selectedNode.selectAll('circle').attr('class', determineClass);
-		    		}
-		    		
-		    		var group = d3.select(this);
-		    		group.selectAll('circle').attr('class', 'selected');
-		    		
-		    		selectedNode = group;
-		    		selectedItem = d;
-		    		showData();
-	    		}
-	        });
-		
-		var circle = elemEnter.append("circle")
-	        .attr("r", circleRadius + "px")
-	        .attr("class", determineClass);
-		
-		elemEnter.append("text")
-	        .attr("dx", function(d){return -10})
-	        .text(function(d){return d.id});
-	    	
-	    var linkArc = function(d){
-  			var dx = d.target.meta_data.x - d.source.meta_data.x,
-			dy = d.target.meta_data.y - d.source.meta_data.y,
-			//dr = Math.sqrt(dx * dx + dy * dy);
-			dr = 100;
-			return "M" + d.source.meta_data.x + "," + d.source.meta_data.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.meta_data.x + "," + d.target.meta_data.y;
-	    };
-		
-		var path = vis.append("g").selectAll("path")
-    		.data(links)
-  			.enter().append("path")
-    		.attr("class", function(d) { return "link"; })
-    		.attr("marker-end", function(d) { return "url(#suit)"; })
-    		.attr("d", linkArc);
-	}
-};
-</script>
 </body>
 </html>
