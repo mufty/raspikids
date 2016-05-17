@@ -1,0 +1,25 @@
+{
+  "name": "RaspiKids",
+  "description": "Raspberry PI GPIO framework for teaching kids programming",
+  "main": "ui/main.js",
+  "authors": [
+    "Michal Gubriansky <gubriansky@sernato.sk>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "raspberry",
+    "pi",
+    "gpio",
+    "learning",
+    "kids"
+  ],
+  "homepage": "https://github.com/mufty/raspikids",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
