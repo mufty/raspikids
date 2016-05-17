@@ -81,9 +81,31 @@ window.onload = function(){
 	
 	var loadedWF = null;
 	
+	var generateFormElement = function(value, key){
+		if(typeof(value) == 'string'){
+			return '<label for="id_'+key+'">'+key+'</label><input id="id_'+key+'" type="text" value="'+value+'"/>';
+		}
+		return '';
+	};
+	
+	var generateHtmlForObject = function(){
+		
+	};
+	
 	var showData = function(){
 		if(selectedItem){
-			d3.select('.selectedData').html(JSON.stringify(selectedItem));
+			//d3.select('.selectedData').html(JSON.stringify(selectedItem));
+			
+			//generate form
+			var html = '';
+			
+			for(var k in selectedItem){
+				if(typeof(selectedItem[k]) != 'object'){
+					html += generateFormElement(selectedItem[k], k);
+				}
+			}
+			
+			d3.select('.selectedData').html(html);
 		} else {
 			d3.select('.selectedData').html('');
 		}
