@@ -9,7 +9,8 @@
 		"rpi-gpio": "https://github.com/mufty/rpi-gpio.js.git",
 		"merge": "^1.2.0",
 		"d3": "^3.5.17",
-		"electron-prebuilt": "^1.0.1"
+		"electron-prebuilt": "^1.0.1",
+		"bower": "^1.7.9"
   },
   "keywords": [
     "raspberry",
@@ -23,7 +24,8 @@
 	  "raspi-kids-wf": "bin/start.js"
   },
   "scripts": {
-	  "start": "electron ui/main.js"
+	  "start": "electron ui/main.js",
+	  "postinstall": "node_modules/bower/bin/bower install"
   },
   "maintainers": [
     {
