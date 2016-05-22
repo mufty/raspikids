@@ -1,9 +1,15 @@
-<span ng-repeat="(key, value) in data">
-	<label ng-show="doShow(value)">{{key}}</label>
-	<input type="text" ng-model="data[key]" ng-show="doShow(value) && isString(value)"/>
-	<input type="checkbox" ng-model="data[key]" ng-show="doShow(value) && isBoolean(value)"/>
-	<div ng-hide="doShow(value, key)">
-		<label>{{key}} {{value}}</label>
-		<!-- element-form data="value"></element-form -->
-	</div>
-</span>
+<div class="pin" ng-show="data">
+	<label>Id:</label>
+	<input type="text" ng-model="data.id"/>
+	<label>Port number:</label>
+	<input type="number" ng-model="data.data.gpioPort"/>
+	<label ng-show="showPin()">I/O:</label>
+	<select ng-model="data.data.io" ng-show="showPin()">
+		<option value="output">Output</option>
+      	<option value="input">Input</option>
+	</select>
+	<label>Start:</label>
+	<input type="checkbox" ng-model="data.meta_data.start"/>
+	<label>End:</label>
+	<input type="checkbox" ng-model="data.meta_data.end"/>
+</div>

@@ -1,4 +1,4 @@
-app.directive('elementForm', function(workflowService) {
+app.directive('elementForm', function($rootScope, workflowService, elementService) {
 	return {
 	    restrict: 'E',
 	    scope: {
@@ -6,51 +6,56 @@ app.directive('elementForm', function(workflowService) {
 	    },
 	    templateUrl: 'directives/elementForm.html',
 	    link: function(scope, element, attrs){
-	    	scope.$watch('data.id', function(newVal, oldVal){
-	    		var currentData = workflowService.getCurrentData();
+	    	var unregisterIdWatch = scope.$watch('data.id', function(newVal, oldVal){
+	    		//scope.data
+	    		var currentData = scope.data;
+	    		console.log('elementForm', currentData);
 	    		if(!currentData || !oldVal || !newVal)
 	    			return;
 	    		
-	    		var obj = currentData[oldVal];
+	    		var d = workflowService.getCurrentData();
+	    		
+	    		/*var obj = currentData[oldVal];
 	    		currentData[newVal] = obj;
-	    		delete currentData[oldVal];
+	    		delete currentData[oldVal];*/
 	    		
 	    		//update connections
-	    		for(var k in currentData){
-	    			if(currentData[k].data && currentData[k].data.out){
-	    				for(var i in currentData[k].data.out){
-	    					var out = currentData[k].data.out[i];
+	    		for(var k in d){
+	    			if(d[k].data && d[k].data.out){
+	    				for(var i in d[k].data.out){
+	    					var out = d[k].data.out[i];
 	    					if(out.target == oldVal)
 	    						out.target = newVal;
 	    				}
 	    			}
 	    		}
 	    		
-	    		workflowService.setCurrentData(currentData);
+	    		workflowService.updateCurrentData(currentData, oldVal);
 	    	});
-	    	scope.doShow = function(val, key){
-	    		if(key && key == 'meta_data')
-	    			return true;
-	    		
-	    		if(typeof(val) != 'object')
+	    	
+	    	scope.showPin = function(){
+	    		if(scope.data && scope.data.component == "Pin")
 	    			return true;
 	    		
 	    		return false;
 	    	};
 	    	
-	    	scope.isString = function(val){
-	    		if(typeof(val) == 'string')
+	    	scope.showTIP = function(){
+	    		if(scope.data && scope.data.component == "TimedInputPin")
 	    			return true;
 	    		
 	    		return false;
 	    	};
 	    	
-	    	scope.isBoolean = function(val){
-	    		if(typeof(val) == 'boolean')
-	    			return true;
-	    		
-	    		return false;
-	    	};
+	    	scope.$watch('data.meta_data.start', function(newVal, oldVal){
+	    		if(scope.data && newVal === true)
+	    			workflowService.updateStart(scope.data.id);
+	    	});
+	    	
+	    	scope.$watch('data.meta_data.end', function(newVal, oldVal){
+	    		if(scope.data && newVal === true)
+	    			workflowService.updateEnd(scope.data.id);
+	    	});
 	    }
 	};
 });

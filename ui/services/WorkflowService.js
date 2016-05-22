@@ -12,19 +12,65 @@ app.service('workflowService', function($rootScope) {
   };
   
   var setCurrentData = function(newObj){
+	  console.log("setCurrentData", currentData, newObj);
 	  currentData = newObj;
 	  $rootScope.$broadcast('current_data_changed', newObj);
   };
   
+  var updateCurrentData = function(updateObj, removeId){
+	  console.log("updateCurrentData", updateObj, currentData, removeId);
+	  if(updateObj){
+		  if(removeId){
+			  delete currentData[removeId];
+		  }
+		  
+		  if(updateObj && updateObj.id){
+			  currentData[updateObj.id] = updateObj;
+		  }
+		  
+		  $rootScope.$broadcast('current_data_changed', currentData);
+	  }
+  };
+  
   var getCurrentData = function(){
 	  return currentData;
+  };
+  
+  var updateStart = function(newStartId){
+	  console.log(currentData);
+	  if(!currentData)
+		  return;
+	  
+	  for(var k in currentData){
+		  if(k != newStartId){
+			  currentData[k].meta_data.start = false;
+		  }
+	  }
+	  
+	  $rootScope.$broadcast('current_data_changed', currentData);
+  };
+  
+  var updateEnd = function(newEndId){
+	  if(!currentData)
+		  return;
+	  
+	  for(var k in currentData){
+		  if(k != newEndId){
+			  currentData[k].meta_data.end = false;
+		  }
+	  }
+	  
+	  $rootScope.$broadcast('current_data_changed', currentData);
   };
 
   return {
 	  getLoadedWF: getLoadedWF,
 	  setLoadedWF: setLoadedWF,
 	  setCurrentData: setCurrentData,
-	  getCurrentData: getCurrentData
+	  getCurrentData: getCurrentData,
+	  updateStart: updateStart,
+	  updateEnd: updateEnd,
+	  updateCurrentData: updateCurrentData
   };
 
 });

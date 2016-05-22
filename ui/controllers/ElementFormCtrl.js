@@ -4,8 +4,4 @@ app.controller('ElementFormCtrl', function ($scope, elementService) {
 		$scope.selectedItem = value;
 		$scope.$apply();
 	});
-	
-	/*$scope.$watch('selectedItem', function(){
-		console.log($scope.selectedItem);
-	});*/
 });

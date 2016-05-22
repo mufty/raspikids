@@ -18,8 +18,24 @@ app.controller('MenuController', function ($scope, elementService, workflowServi
 	};
 	
 	$scope.save = function(){
-		if(workflowService.getLoadedWF() && workflowService.getCurrentData())
-			crud.save(workflowService.getCurrentData(), workflowService.getLoadedWF());
+		//test for start nodes
+		var data = workflowService.getCurrentData();
+		if(data){
+			var foundStart = false
+			for(var k in data){
+				var d = data[k];
+				if(d.meta_data.start)
+					foundStart = true;
+			}
+			
+			if(!foundStart){
+				alert("Missing a starting node! Please mark one as start before saving.");
+				return;
+			}
+		}
+		
+		if(workflowService.getLoadedWF() && data)
+			crud.save(data, workflowService.getLoadedWF());
 	};
 	
 	var currentChildProcess;
