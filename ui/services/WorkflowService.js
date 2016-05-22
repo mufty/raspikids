@@ -12,13 +12,11 @@ app.service('workflowService', function($rootScope) {
   };
   
   var setCurrentData = function(newObj){
-	  console.log("setCurrentData", currentData, newObj);
 	  currentData = newObj;
 	  $rootScope.$broadcast('current_data_changed', newObj);
   };
   
   var updateCurrentData = function(updateObj, removeId){
-	  console.log("updateCurrentData", updateObj, currentData, removeId);
 	  if(updateObj){
 		  if(removeId){
 			  delete currentData[removeId];
@@ -37,7 +35,6 @@ app.service('workflowService', function($rootScope) {
   };
   
   var updateStart = function(newStartId){
-	  console.log(currentData);
 	  if(!currentData)
 		  return;
 	  

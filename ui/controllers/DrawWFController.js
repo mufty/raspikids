@@ -72,9 +72,6 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 	    		group.selectAll('circle').attr('class', 'selected');
 	    		
 	    		selectedNode = group;
-	    		//elementService.setSelectedElement(d);
-	    		
-	    		//showData();
 	    	})
 	    	.on('drag', function(d) {
 	    		var group = d3.select(this);
@@ -86,9 +83,6 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 	    		   .data(links).attr("d", linkArc);
 	    	})
 	    	.on('dragend', function(d) { 
-	    		/*var group = d3.select(this);
-	    		group.selectAll('circle').attr('class', determineClass);
-	    		console.log(data);*/
 	    	});
 	    	
 	    var elem = vis.selectAll(".node")

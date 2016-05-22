@@ -6,18 +6,18 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    },
 	    templateUrl: 'directives/elementForm.html',
 	    link: function(scope, element, attrs){
+	    	var changedOutside = false;
 	    	var unregisterIdWatch = scope.$watch('data.id', function(newVal, oldVal){
-	    		//scope.data
+	    		if(changedOutside){
+	    			changedOutside = false;
+	    			return;
+	    		}
+	    		
 	    		var currentData = scope.data;
-	    		console.log('elementForm', currentData);
 	    		if(!currentData || !oldVal || !newVal)
 	    			return;
 	    		
 	    		var d = workflowService.getCurrentData();
-	    		
-	    		/*var obj = currentData[oldVal];
-	    		currentData[newVal] = obj;
-	    		delete currentData[oldVal];*/
 	    		
 	    		//update connections
 	    		for(var k in d){
@@ -31,6 +31,10 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    		}
 	    		
 	    		workflowService.updateCurrentData(currentData, oldVal);
+	    	});
+	    	
+	    	$rootScope.$on('selected_node', function(){
+	    		changedOutside = true;
 	    	});
 	    	
 	    	scope.showPin = function(){
