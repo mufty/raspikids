@@ -59,6 +59,21 @@ app.service('workflowService', function($rootScope) {
 	  
 	  $rootScope.$broadcast('current_data_changed', currentData);
   };
+  
+  var getCurrentIds = function(){
+	  if(!currentData)
+		  return null;
+	  
+	  var ret = null;
+	  for(var k in currentData){
+		  if(!ret)
+			  ret = [];
+		  
+		  ret.push(k);
+	  }
+	  
+	  return ret;
+  };
 
   return {
 	  getLoadedWF: getLoadedWF,
@@ -67,7 +82,8 @@ app.service('workflowService', function($rootScope) {
 	  getCurrentData: getCurrentData,
 	  updateStart: updateStart,
 	  updateEnd: updateEnd,
-	  updateCurrentData: updateCurrentData
+	  updateCurrentData: updateCurrentData,
+	  getCurrentIds: getCurrentIds
   };
 
 });

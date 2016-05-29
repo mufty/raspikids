@@ -8,10 +8,69 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    link: function(scope, element, attrs){
 	    	scope.exportOptions = [];
 	    	
+	    	scope.workflowService = workflowService;
+	    	
 	    	var changedOutside = false;
 	    	var unregisterIdWatch = scope.$watch('data.id', function(newVal, oldVal){
-	    		if(scope.data && scope.data.component == "TimedInputPin"){
-		    		scope.exportOptions = ['', 'measurement'];
+	    		if(scope.data){
+	    			if(scope.data.component == "TimedInputPin"){
+	    				scope.exportOptions = ['', 'measurement'];
+	    			}
+	    			
+	    			if(scope.data && scope.data.data && scope.data.data.out){
+	    				for(var k in scope.data.data.out){
+	    					var out = scope.data.data.out[k];
+	    					if(out.export){
+	    						out.targetKey = function(value){
+	    							if (angular.isDefined(value)) {
+	    							    //setter
+	    								var originalExportValue = null;
+	    								var key = null;
+	    								for(var i in out.export){
+	    									originalExportValue = out.export[i];
+	    									key = i;
+	    								}
+	    								
+	    								if(!originalExportValue)
+	    									originalExportValue = "";
+	    								
+	    								out.export[value] = originalExportValue;
+	    								
+	    								delete out.export[key];
+	    							} else {        
+	    								//getter
+	    								var key = null;
+	    								for(var i in out.export){
+	    									key = i;
+	    								};
+	    								return key;
+	    							}
+	    						};
+	    						
+	    						out.targetValue = function(value){
+	    							if (angular.isDefined(value)) {
+	    								//setter
+	    								var key = null;
+	    								for(var i in out.export){
+	    									key = i;
+	    								}
+	    								
+	    								out.export[key] = value;
+	    							} else {
+	    								//getter
+	    								var originalExportValue = null;
+	    								for(var i in out.export){
+	    									originalExportValue = out.export[i];
+	    								}
+	    								
+	    								if(!originalExportValue)
+	    									originalExportValue = "";
+	    								return originalExportValue;
+	    							}
+	    						};
+	    					}
+	    				}
+	    			}
 		    	}
 	    		
 	    		if(changedOutside){
@@ -58,7 +117,47 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    	};
 	    	
 	    	scope.addExport = function(){
+	    		if(!scope.data || !scope.data.data)
+	    			return;
 	    		
+	    		if(!scope.data.data.out)
+	    			scope.data.data.out = [];
+	    		
+	    		scope.data.data.out.push({
+	    			"target":"",
+	    			"export":{
+	    				"":""
+	    			}
+	    		});
+	    	};
+	    	
+	    	scope.showExports = function(){
+	    		if(!scope.data || !scope.data.data || !scope.data.data.out)
+	    			return false;
+	    		
+	    		var show = false;
+	    		
+	    		for(var k in scope.data.data.out){
+	    			if(scope.data.data.out[k].export)
+	    				show = true;
+	    		}
+	    		
+	    		return show;
+	    	};
+	    	
+	    	scope.getOutputIds = function(){
+	    		if(!scope.data || !scope.data.data || !scope.data.data.out)
+	    			return [];
+	    		
+	    		var ret = [];
+	    		
+    			for(var k in scope.data.data.out){
+    				var out = scope.data.data.out[k];
+    				if(ret.indexOf(out.target) == -1)
+    					ret.push(out.target);
+	    		}
+	    			
+	    		return ret;
 	    	};
 	    	
 	    	scope.inputOptions = function(target){
