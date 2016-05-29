@@ -12,4 +12,21 @@
 	<input type="checkbox" ng-model="data.meta_data.start"/>
 	<label>End:</label>
 	<input type="checkbox" ng-model="data.meta_data.end"/>
+	
+	<div>
+		<label>Exports:</label>
+		<div ng-repeat="export in data.data.out">
+			<label>{{export.target}}</label>
+			<div ng-repeat="(key, value) in export.export">
+				<select ng-change="updateExports">
+					<option ng-repeat="o in exportOptions" value="{{o}}" selected="o == key">{{o}}</option>
+				</select>
+				-->
+				<select ng-change="updateExports">
+					<option ng-repeat="o in inputOptions(export.target)" value="{{o}}" selected="o == value">{{o}}</option>
+				</select>
+			</div>
+		</div>
+		<button ng-click="addExport()">Add export</button>
+	</div>
 </div>

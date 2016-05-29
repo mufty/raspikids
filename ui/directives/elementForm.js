@@ -6,8 +6,14 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    },
 	    templateUrl: 'directives/elementForm.html',
 	    link: function(scope, element, attrs){
+	    	scope.exportOptions = [];
+	    	
 	    	var changedOutside = false;
 	    	var unregisterIdWatch = scope.$watch('data.id', function(newVal, oldVal){
+	    		if(scope.data && scope.data.component == "TimedInputPin"){
+		    		scope.exportOptions = ['', 'measurement'];
+		    	}
+	    		
 	    		if(changedOutside){
 	    			changedOutside = false;
 	    			return;
@@ -33,7 +39,7 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    		workflowService.updateCurrentData(currentData, oldVal);
 	    	});
 	    	
-	    	$rootScope.$on('selected_node', function(){
+	    	$rootScope.$on('selected_node', function(d){
 	    		changedOutside = true;
 	    	});
 	    	
@@ -49,6 +55,23 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    			return true;
 	    		
 	    		return false;
+	    	};
+	    	
+	    	scope.addExport = function(){
+	    		
+	    	};
+	    	
+	    	scope.inputOptions = function(target){
+	    		var data = workflowService.getCurrentData();
+	    		for(var k in data){
+	    			if(k == target){
+	    				var d = data[k];
+	    				if(d.component == 'Pin'){
+	    					return ['', 'time'];
+	    				}
+	    			}
+	    		}
+	    		return [];
 	    	};
 	    	
 	    	scope.$watch('data.meta_data.start', function(newVal, oldVal){
