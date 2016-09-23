@@ -46,8 +46,12 @@ line {
 .link {
 	fill: none;
 	stroke: #666;
-	stroke-width: 1.5px;
+	stroke-width: 5px;
 	-webkit-svg-shadow: 0 1px 0 #fff;
+}
+
+.link.linkSelected {
+	stroke: #3693cc;
 }
 
 div.wfHolder {
@@ -79,6 +83,8 @@ div.selectedData {
 	<div class="menu" ng-controller="MenuController">
 		<input id="start_btn" ng-click="start()" type="button" value="Start" />
 		<input id="save_btn" ng-click="save()" type="button" value="Save" />
+		<input id="removeLink_btn" ng-click="removeLink()" type="button" value="Remove Link" ng-disabled="selectedLink == false" />
+		<input id="addLink_btn" ng-click="addLink()" type="button" value="Add Link" />
 		<ul id="allWorkflows">
 			<li ng-repeat="d in data" ng-click="loadWorkflow(d)">{{d}}</li>
 		</ul>

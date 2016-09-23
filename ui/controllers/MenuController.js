@@ -3,7 +3,7 @@ var fs = require('fs');
 var crud = require('../ui/crud.js');
 const spawn = require('child_process').spawn;
 
-app.controller('MenuController', function ($scope, elementService, workflowService) {
+app.controller('MenuController', function ($scope, $rootScope, elementService, workflowService) {
 	var workflowDir = 'wf/';
 	
 	fs.readdir(workflowDir, function (err, data) {
@@ -63,4 +63,15 @@ app.controller('MenuController', function ($scope, elementService, workflowServi
 			});
 		}
 	};
+	
+	$scope.selectedLink = false;
+	
+	$rootScope.$on('selected_link', function(e, d){
+		if(d)
+			$scope.selectedLink = true;
+		else
+			$scope.selectedLink = false;
+		
+		$scope.$apply();
+	});
 });
