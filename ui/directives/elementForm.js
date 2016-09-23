@@ -116,12 +116,16 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    		return false;
 	    	};
 	    	
-	    	scope.addExport = function(){
+	    	var _initExports = function(){
 	    		if(!scope.data || !scope.data.data)
 	    			return;
 	    		
 	    		if(!scope.data.data.out)
 	    			scope.data.data.out = [];
+	    	};
+	    	
+	    	scope.addExport = function(){
+	    		_initExports();
 	    		
 	    		scope.data.data.out.push({
 	    			"target":"",
@@ -131,18 +135,27 @@ app.directive('elementForm', function($rootScope, workflowService, elementServic
 	    		});
 	    	};
 	    	
+	    	scope.removeExport = function(obj){
+	    		_initExports();
+	    		
+	    		var outs = scope.data.data.out;
+	    		
+	    		if(outs.indexOf(obj) > -1){
+	    			var index = outs.indexOf(obj);
+    				outs.splice(index, 1);
+	    		}
+	    		
+	    		console.log(outs);
+	    	};
+	    	
 	    	scope.showExports = function(){
 	    		if(!scope.data || !scope.data.data || !scope.data.data.out)
 	    			return false;
 	    		
-	    		var show = false;
-	    		
-	    		for(var k in scope.data.data.out){
-	    			if(scope.data.data.out[k].export)
-	    				show = true;
-	    		}
-	    		
-	    		return show;
+	    		if(scope.data.component == "TimedInputPin")
+	    			return true;
+	    		else
+	    			return false;
 	    	};
 	    	
 	    	scope.getOutputIds = function(){

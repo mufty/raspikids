@@ -23,6 +23,8 @@
 				-->
 				<select class="exportValue" ng-model="export.targetValue" ng-model-options="{ getterSetter: true }" ng-options="item as item for item in inputOptions(export.target) track by item"></select>
 			</div>
+			
+			<button ng-click="removeExport(export)">Remove</button>
 		</div>
 		<button ng-click="addExport()">Add export</button>
 	</div>
