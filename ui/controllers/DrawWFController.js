@@ -1,7 +1,26 @@
 var d3 = require('d3');
+var cm = require('d3-context-menu')(d3);
 
 app.controller('DrawWFController', function ($scope, $rootScope, workflowService, elementService) {
 	$scope.loadedWF = "";
+	
+	var menu = [
+	            {
+	                title: 'Item #1',
+	                action: function(elm, d, i) {
+	                    console.log('Item #1 clicked!');
+	                    console.log('The data for this circle is: ' + d);
+	                },
+	                disabled: false // optional, defaults to false
+	            },
+	            {
+	                title: 'Item #2',
+	                action: function(elm, d, i) {
+	                    console.log('You have clicked the second item!');
+	                    console.log('The data for this circle is: ' + d);
+	                }
+	            }
+	        ];
 	
 	var vis = d3.select("#graph");
 	var workflowDir = 'wf/';
@@ -107,7 +126,7 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 		    		elementService.setSelectedElement(d);
 		    		//showData();
 	    		}
-	        });
+	        }).on('contextmenu', d3.contextMenu(menu));
 		
 		var circle = elemEnter.append("circle")
 	        .attr("r", circleRadius + "px")
