@@ -37,6 +37,14 @@ So if you create a directory you can just clone these to play around with it.
 
 git clone https://github.com/mufty/raspikids-example.git
 
+## Running UI from sources
+
+For running the UI from checked out source code just run: 
+
+npm start
+
+in the project directory.
+
 ### Workflow engine
 
 To use just the engine withouth the UI you can execute just some workflow by doing:

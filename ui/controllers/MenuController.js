@@ -51,15 +51,15 @@ app.controller('MenuController', function ($scope, $rootScope, elementService, w
 			currentChildProcess = spawn('raspi-kids-wf', [workflowService.getLoadedWF().replace('.json','')]);
 			
 			currentChildProcess.stdout.on('data', (data) => {
-				  console.log(`stdout: ${data}`);
+				  console.log('stdout: ${data}');
 			});
 			
 			currentChildProcess.stderr.on('data', (data) => {
-				  console.log(`stderr: ${data}`);
+				  console.log('stderr: ${data}');
 			});
 			
 			currentChildProcess.on('close', (code) => {
-				  console.log(`child process exited with code ${code}`);
+				  console.log('child process exited with code ${code}');
 			});
 		}
 	};
