@@ -1,51 +1,114 @@
 var d3 = require('d3');
 var cm = require('d3-context-menu')(d3);
 
-app.controller('DrawWFController', function ($scope, $rootScope, workflowService, elementService) {
-	$scope.loadedWF = "";
+class DrawWFController {
 	
-	var menu = [
-	            {
-	                title: 'Outputs',
-	                action: function(elm, d, i) {
-	                    console.log('Item #1 clicked!');
-	                    console.log('The data for this circle is: ' + d);
-	                },
-	                disabled: false // optional, defaults to false
-	            },
-	            {
-	            	divider: true
-	            },
-	            {
-	                title: 'Inputs',
-	                action: function(elm, d, i) {
-	                    console.log('You have clicked the second item!');
-	                    console.log('The data for this circle is: ' + d);
-	                }
-	            }
-	        ];
+	constructor($scope, $rootScope, workflowService, elementService) {
+		this.scope = $scope;
+		this.rootScope = $rootScope;
+		this.workflowService = workflowService;
+		this.elementService = elementService;
+		
+		this.menu = [
+			            {
+			                title: 'Outputs',
+			                action: function(elm, d, i) {
+			                    console.log('Item #1 clicked!');
+			                    console.log('The data for this circle is: ' + d);
+			                },
+			                disabled: false // optional, defaults to false
+			            },
+			            {
+			            	divider: true
+			            },
+			            {
+			                title: 'Inputs',
+			                action: function(elm, d, i) {
+			                    console.log('You have clicked the second item!');
+			                    console.log('The data for this circle is: ' + d);
+			                }
+			            }
+			        ];
+		
+		this.vis = d3.select("#graph");
+		this.workflowDir = 'wf/';
+		this.circleRadius = 30;
+		this.selectedNode;
+		this.selectedLink;
+		
+		this.initEvents();
+	}
 	
-	var vis = d3.select("#graph");
-	var workflowDir = 'wf/';
-	var circleRadius = 30;
-	var selectedNode;
-	var selectedLink;
-	var selfLoaded = false;
+	initEvents() {
+		
+		this.scope.$on('load_wf', this.loadWF.bind(this));
+		
+		this.scope.$on('current_data_changed', this.currentDataChanged.bind(this));
+		
+		this.scope.$watch('loadedWF', this.loadedWF.bind(this));
+		
+	}
 	
-	var determineClass = function(d){
+	loadWF(response, value) {
+		this.scope.loadedWF = value;
+	}
+	
+	currentDataChanged(response, value) {
+		if(value)
+			this.draw(value);
+		
+		this.selfLoaded = false;
+	}
+	
+	loadedWF() {
+		if(this.scope.loadedWF)
+			this.load();
+	}
+	
+	load() {
+		var that = this;
+		this.vis.on('click', function(){
+			//reset selected class
+    		if(!d3.event.defaultPrevented && that.selectedNode && that.selectedNode != this){
+    			that.selectedNode.selectAll('circle').attr('class', that.determineClass);
+    			that.selectedNode = null;
+    			that.elementService.setSelectedElement(null);
+    		}
+    		
+    		if(!d3.event.defaultPrevented && that.selectedLink && that.selectedLink != this){
+    			that.selectedLink.attr('class', 'link');
+    			that.selectedLink = null;
+    			that.elementService.setSelectedLink(null);
+    		}
+			
+    		//showData();
+		});
+
+		var data = require('../' + this.workflowDir + this.scope.loadedWF);
+		
+		this.selfLoaded = true;
+		
+		this.workflowService.setCurrentData(data);
+		
+		this.draw(data);
+	}
+	
+	determineClass(d) {
 		if(d.meta_data.end)
 			return 'end';
 		else if(d.meta_data.start)
 			return 'start';
 		return '';
-	};
+	}
 	
-	var draw = function(data){
+	draw(data){
 		console.log("draw");
 		
-		vis.html('');
+		var that = this;
 		
-		vis.append("defs").selectAll("marker")
+		this.vis.html('');
+		
+		this.vis.append("defs").selectAll("marker")
     			.data(["suit", "licensing", "resolved"])
 	  		.enter().append("marker")
 	    		.attr("id", function(d) { return d; })
@@ -59,7 +122,7 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 			    .attr("d", "M0,-5L10,0L0,5");
 		
 		var w = '100%', h = '100%';
-		vis.attr("width", w)
+		this.vis.attr("width", w)
 		   .attr("height", h);
 		
 		var nodes = [];
@@ -92,7 +155,7 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 			return "M" + d.source.meta_data.x + "," + d.source.meta_data.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.meta_data.x + "," + d.target.meta_data.y;
 	    };
 		
-		var path = vis.append("g").selectAll("path")
+		var path = this.vis.append("g").selectAll("path")
     		.data(links)
   			.enter().append("path")
     		.attr("class", function(d) { return "link"; })
@@ -101,29 +164,29 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
     		.on('click', function(d){
 	        	d3.event.stopPropagation();
 	        	if(!d3.event.defaultPrevented){
-	        		if(selectedLink){
-	        			selectedLink.selectAll('path').attr('class', 'link');
+	        		if(that.selectedLink){
+	        			that.selectedLink.selectAll('path').attr('class', 'link');
 		    		}
 		    		
 		    		var group = d3.select(this);
 		    		group.attr('class', 'link linkSelected');
 		    		
-		    		selectedLink = group;
-		    		elementService.setSelectedLink(d);
+		    		that.selectedLink = group;
+		    		that.elementService.setSelectedLink(d);
 	    		}
 	        });
 		
 		var drag = d3.behavior.drag()
 	    	.on('dragstart', function(d) {
 	    		//reset selected class
-	    		if(selectedNode){
-	    			selectedNode.selectAll('circle').attr('class', determineClass);
+	    		if(that.selectedNode){
+	    			that.selectedNode.selectAll('circle').attr('class', that.determineClass);
 	    		}
 	    		
 	    		var group = d3.select(this);
 	    		group.selectAll('circle').attr('class', 'selected');
 	    		
-	    		selectedNode = group;
+	    		that.selectedNode = group;
 	    	})
 	    	.on('drag', function(d) {
 	    		var group = d3.select(this);
@@ -131,13 +194,13 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 	    		d.meta_data.y = d3.event.y;
 	    		group.attr('transform', "translate("+d.meta_data.x+","+d.meta_data.y+")");
 	    		
-	    		vis.selectAll(".link")
+	    		that.vis.selectAll(".link")
 	    		   .data(links).attr("d", linkArc);
 	    	})
 	    	.on('dragend', function(d) { 
 	    	});
 	    	
-	    var elem = vis.selectAll(".node")
+	    var elem = this.vis.selectAll(".node")
 			.data(nodes);
 		
 		var elemEnter = elem.enter()
@@ -148,68 +211,28 @@ app.controller('DrawWFController', function ($scope, $rootScope, workflowService
 	        .on('click', function(d){
 	        	d3.event.stopPropagation();
 	        	if(!d3.event.defaultPrevented){
-	        		if(selectedNode){
-		    			selectedNode.selectAll('circle').attr('class', determineClass);
+	        		if(that.selectedNode){
+	        			that.selectedNode.selectAll('circle').attr('class', that.determineClass);
 		    		}
 		    		
 		    		var group = d3.select(this);
 		    		group.selectAll('circle').attr('class', 'selected');
 		    		
-		    		selectedNode = group;
-		    		elementService.setSelectedElement(d);
+		    		that.selectedNode = group;
+		    		that.elementService.setSelectedElement(d);
 		    		//showData();
 	    		}
-	        }).on('contextmenu', d3.contextMenu(menu));
+	        }).on('contextmenu', d3.contextMenu(this.menu));
 		
 		var circle = elemEnter.append("circle")
-	        .attr("r", circleRadius + "px")
-	        .attr("class", determineClass);
+	        .attr("r", this.circleRadius + "px")
+	        .attr("class", this.determineClass);
 		
 		elemEnter.append("text")
 	        .attr("dx", function(d){return -10})
 	        .text(function(d){return d.id});
-	}; 
-	
-	var loadWF = function(){
-		vis.on('click', function(){
-			//reset selected class
-    		if(!d3.event.defaultPrevented && selectedNode && selectedNode != this){
-    			selectedNode.selectAll('circle').attr('class', determineClass);
-    			selectedNode = null;
-    			elementService.setSelectedElement(null);
-    		}
-    		
-    		if(!d3.event.defaultPrevented && selectedLink && selectedLink != this){
-    			selectedLink.attr('class', 'link');
-    			selectedLink = null;
-    			elementService.setSelectedLink(null);
-    		}
-			
-    		//showData();
-		});
-
-		var data = require('../' + workflowDir + $scope.loadedWF);
-		
-		selfLoaded = true;
-		
-		workflowService.setCurrentData(data);
-		
-		draw(data);
 	}
 	
-	$scope.$on('load_wf', function(response, value) {
-		$scope.loadedWF = value;
-	});
-	
-	$scope.$on('current_data_changed', function(response, value) {
-		if(value)
-			draw(value);
-		
-		selfLoaded = false;
-	});
-	
-	$scope.$watch('loadedWF', function() {
-		if($scope.loadedWF)
-			loadWF();
-    });
-});
+}
+
+app.controller('DrawWFController', DrawWFController);
