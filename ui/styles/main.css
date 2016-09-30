@@ -1,0 +1,55 @@
+g,g text {
+	cursor: pointer;
+}
+
+circle.end {
+	fill: #D94747;
+}
+
+circle.start {
+	fill: #56D947;
+}
+
+circle {
+	fill: #E8E8E8;
+}
+
+circle.selected {
+	fill: #FFFACF;
+}
+
+line {
+	stroke: rgb(6, 120, 155);
+}
+
+.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 5px;
+	-webkit-svg-shadow: 0 1px 0 #fff;
+}
+
+.link.linkSelected {
+	stroke: #3693cc;
+}
+
+div.wfHolder {
+	position: absolute;
+	top: 90px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+}
+
+div.menu {
+	bottom: 0px;
+    position: absolute;
+    z-index: 1000;
+}
+
+div.selectedData {
+	top: 0px;
+    position: absolute;
+    z-index: 999;
+}
