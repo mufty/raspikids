@@ -3,23 +3,48 @@ var fs = require('fs');
 var crud = require('../ui/crud.js');
 const spawn = require('child_process').spawn;
 
-app.controller('MenuController', function ($scope, $rootScope, elementService, workflowService) {
-	var workflowDir = 'wf/';
+class MenuController {
 	
-	fs.readdir(workflowDir, function (err, data) {
-		if (err) throw err;
+	constructor($scope, $rootScope, elementService, workflowService) {
+		this.workflowDir = 'wf/';
+		this.scope = $scope;
+		this.scope.selectedLink = false;
+		this.rootScope = $rootScope;
+		this.elementService = elementService;
+		this.workflowService = workflowService;
+		this.currentChildProcess = null;
 		
-		$scope.data = data;
-		$scope.$apply();
-	});
+		this.init();
+	}
 	
-	$scope.loadWorkflow = function(d){
-		workflowService.setLoadedWF(d);
-	};
+	init() {
+		fs.readdir(this.workflowDir, function (err, data) {
+			if (err) throw err;
+			
+			this.scope.data = data;
+			this.scope.$apply();
+		}.bind(this));
+		
+		this.rootScope.$on('selected_link', function(e, d){
+			if(d)
+				this.scope.selectedLink = true;
+			else
+				this.scope.selectedLink = false;
+			
+			this.scope.$apply();
+		}.bind(this));
+
+		this.scope.loadWorkflow = this.loadWorkflow.bind(this);
+		this.scope.save = this.save.bind(this);
+		this.scope.start = this.start.bind(this);
+	}
 	
-	$scope.save = function(){
-		//test for start nodes
-		var data = workflowService.getCurrentData();
+	loadWorkflow(d) {
+		this.workflowService.setLoadedWF(d);
+	}
+	
+	save() {
+		var data = this.workflowService.getCurrentData();
 		if(data){
 			var foundStart = false
 			for(var k in data){
@@ -34,44 +59,33 @@ app.controller('MenuController', function ($scope, $rootScope, elementService, w
 			}
 		}
 		
-		if(workflowService.getLoadedWF() && data)
+		if(this.workflowService.getLoadedWF() && data)
 			crud.save(data, workflowService.getLoadedWF());
-	};
-	
-	var currentChildProcess;
-	
-	$scope.start = function(){
-		if(workflowService.getLoadedWF()){
-			if(currentChildProcess){
+	}
+	start() {
+		if(this.workflowService.getLoadedWF()){
+			if(this.currentChildProcess){
 				console.log("child process already running kill it!");
-				currentChildProcess.kill();
+				this.currentChildProcess.kill();
 			}
 			
 			console.log("starting child process");
-			currentChildProcess = spawn('raspi-kids-wf', [workflowService.getLoadedWF().replace('.json','')]);
+			this.currentChildProcess = spawn('raspi-kids-wf', [this.workflowService.getLoadedWF().replace('.json','')]);
 			
-			currentChildProcess.stdout.on('data', (data) => {
+			this.currentChildProcess.stdout.on('data', (data) => {
 				  console.log('stdout: ${data}');
 			});
 			
-			currentChildProcess.stderr.on('data', (data) => {
+			this.currentChildProcess.stderr.on('data', (data) => {
 				  console.log('stderr: ${data}');
 			});
 			
-			currentChildProcess.on('close', (code) => {
+			this.currentChildProcess.on('close', (code) => {
 				  console.log('child process exited with code ${code}');
 			});
 		}
-	};
+	}
 	
-	$scope.selectedLink = false;
-	
-	$rootScope.$on('selected_link', function(e, d){
-		if(d)
-			$scope.selectedLink = true;
-		else
-			$scope.selectedLink = false;
-		
-		$scope.$apply();
-	});
-});
+}
+
+app.controller('MenuController', MenuController);
