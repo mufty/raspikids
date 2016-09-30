@@ -1,7 +1,7 @@
-class ElementFormCtrl {
+class ElementFormCtrl extends BaseController {
 	
 	constructor($scope, elementService) {
-		this.scope = $scope;
+		super($scope);
 		this.elementService = elementService;
 		
 		this.init();

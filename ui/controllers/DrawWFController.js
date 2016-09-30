@@ -1,10 +1,10 @@
 var d3 = require('d3');
 var cm = require('d3-context-menu')(d3);
 
-class DrawWFController {
+class DrawWFController extends BaseController {
 	
 	constructor($scope, $rootScope, workflowService, elementService) {
-		this.scope = $scope;
+		super($scope);
 		this.rootScope = $rootScope;
 		this.workflowService = workflowService;
 		this.elementService = elementService;

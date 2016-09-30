@@ -3,11 +3,11 @@ var fs = require('fs');
 var crud = require('../ui/crud.js');
 const spawn = require('child_process').spawn;
 
-class MenuController {
+class MenuController extends BaseController {
 	
 	constructor($scope, $rootScope, elementService, workflowService) {
+		super($scope);
 		this.workflowDir = 'wf/';
-		this.scope = $scope;
 		this.scope.selectedLink = false;
 		this.rootScope = $rootScope;
 		this.elementService = elementService;
