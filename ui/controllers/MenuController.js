@@ -37,10 +37,33 @@ class MenuController extends BaseController {
 		this.scope.loadWorkflow = this.loadWorkflow.bind(this);
 		this.scope.save = this.save.bind(this);
 		this.scope.start = this.start.bind(this);
+		this.scope.removeLink = this.removeLink.bind(this);
 	}
 	
 	loadWorkflow(d) {
 		this.workflowService.setLoadedWF(d);
+	}
+	
+	removeLink() {
+		var selectedLink = this.elementService.getSelectedLink();
+		if(selectedLink){
+			var sourceId = selectedLink.source.id;
+			var targetId = selectedLink.target.id;
+			var wf = this.workflowService.getCurrentData();
+			
+			var wfElement = wf[sourceId];
+			
+			if(wfElement && wfElement.data && wfElement.data.out){
+				for(var i in wfElement.data.out){
+					var o = wfElement.data.out[i];
+					if(o.target == targetId){
+						wfElement.data.out.splice(parseInt(i), 1);
+					}
+				}
+			}
+		
+			this.workflowService.updateCurrentData();
+		}
 	}
 	
 	save() {

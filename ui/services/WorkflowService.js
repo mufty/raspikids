@@ -30,8 +30,10 @@ class WorkflowService {
 				this.currentData[updateObj.id] = updateObj;
 			}
 			  
-			this.rootScope.$broadcast('current_data_changed', this.currentData);
+			//this.rootScope.$broadcast('current_data_changed', this.currentData);
 		}
+		
+		this.rootScope.$broadcast('current_data_changed', this.currentData);
 	}
 	  
 	getCurrentData(){
