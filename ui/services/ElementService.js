@@ -22,10 +22,6 @@ class ElementService {
 	getSelectedLink() {
 		return this.selectedLink.data;
 	}
-	
-	getSelectedLink() {
-		return this.selectedLink.data;
-	}
 	  
 	setSelectedLink(newObj, reset) {
 		//reset selection first
