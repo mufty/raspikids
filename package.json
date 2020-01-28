@@ -4,14 +4,15 @@
   "homepage": "https://github.com/mufty/raspikids#readme",
   "license": "MIT",
   "main": "ui/main.js",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "dependencies": {
     "bower": "^1.7.9",
     "d3": "^3.5.17",
     "d3-context-menu": "^0.1.2",
-    "electron-prebuilt": "^1.0.1",
+    "electron": "^7.1.10",
+    "epoll": "^3.0.0",
     "merge": "^1.2.0",
-    "rpi-gpio": "https://github.com/mufty/rpi-gpio.js.git"
+    "rpi-gpio": "^2.1.5"
   },
   "keywords": [
     "raspberry",
